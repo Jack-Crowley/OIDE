@@ -11,7 +11,7 @@ wss.on('connection', function connection(ws: WebSocket) {
 
     // Wire up logic for the message event (when a client sends something)
     ws.on('message', function incoming(message: RawData) {
-    console.log('received: %s', message);
+        
     });
 
     // Send a message
