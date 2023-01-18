@@ -1,6 +1,6 @@
 import { exec } from "child_process";
 
-export function recieveMessage(str : string) {
+export function receiveMessage(str : string) {
     exec(`echo '${str}' > r.py`, (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);

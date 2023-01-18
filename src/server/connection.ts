@@ -1,5 +1,5 @@
-import {RawData, Server, WebSocket} from 'ws';
-import { recieveMessage } from "./python"
+import WebSocket, {RawData} from 'ws';
+import { recieveMessage } from "./python.js"
 // Set up server
 const port = 8080;
 
