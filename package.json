@@ -7,5 +7,25 @@
   },
   "dependencies": {
     "child_process": "^1.0.2"
-  }
+  },
+  "name": "midyear2023",
+  "version": "1.0.0",
+  "main": "client/client.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jack-Crowley/Midyear2023.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jack-Crowley/Midyear2023/issues"
+  },
+  "homepage": "https://github.com/Jack-Crowley/Midyear2023#readme",
+  "description": ""
 }

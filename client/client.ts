@@ -4,14 +4,8 @@ const socket = new WebSocket('ws://150.136.218.146:8080');
 
 // Connection opened
 socket.addEventListener('open', function (event: Event) {
-    let i = 0;
-    let intervalID = setInterval(function sendMessage() {
-        socket.send('Hello Server!'+i++);
-        if (i > 10) {
-            socket.close();
-            clearInterval(intervalID);   
-        }
-    },100)
+    let string = "print(\"Hello World\")"
+    socket.send("PY: ")
 
 });
 
