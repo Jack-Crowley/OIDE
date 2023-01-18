@@ -1,8 +1,9 @@
-import {RawData, Server, WebSocket} from 'ws';
+import WebSocket, {RawData} from "ws";
+
 // Set up server
 const port = 8080;
 
-const wss: Server = new WebSocket.Server({ port: port });
+const wss: WebSocket.Server = new WebSocket.Server({ port: port });
 
 console.log(`Started on port ${port}`)
 
@@ -17,5 +18,3 @@ wss.on('connection', function connection(ws: WebSocket) {
     // Send a message
     ws.send('Hello client!');
 });
-
-export {};
