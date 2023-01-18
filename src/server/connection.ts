@@ -12,8 +12,9 @@ wss.on('connection', function connection(ws: WebSocket) {
 
     // Wire up logic for the message event (when a client sends something)
     ws.on('message', function incoming(message: RawData) {
-        let header = message.slice(0,3).toString();
-        let fullMsg = message.slice(4, message.toString().length).toString();
+        let messageStr = JSON.parse(message.toString())
+        let header = messageStr.head;
+        let fullMsg = messageStr.msg;
 
         switch (header) {
             case "pyt":
