@@ -3,7 +3,7 @@ import { recieveMessage } from "./python"
 // Set up server
 const port = 8080;
 
-const wss: Server = new WebSocket.Server({ port: port });
+const wss: WebSocket.Server = new WebSocket.Server({ port: port });
 
 console.log(`Started on port ${port}`)
 
