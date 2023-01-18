@@ -1,5 +1,5 @@
 import { exec } from "child_process";
-exec("dir", (error, stdout, stderr) => {
+exec("chown root:OIDE connection.js", (error, stdout, stderr) => {
     if (error) {
         console.log(`error: ${error.message}`);
         return;
@@ -8,5 +8,6 @@ exec("dir", (error, stdout, stderr) => {
         console.log(`stderr: ${stderr}`);
         return;
     }
-    console.log(`stdout: ${stdout}`);
+    console.log(stdout)
+    // setTimeout(function() {console.log("I eat balls")}, 1000)
 });
