@@ -1,13 +1,25 @@
 import { exec } from "child_process";
-exec("chown root:OIDE connection.js", (error, stdout, stderr) => {
-    if (error) {
-        console.log(`error: ${error.message}`);
-        return;
-    }
-    if (stderr) {
-        console.log(`stderr: ${stderr}`);
-        return;
-    }
-    console.log(stdout)
-    // setTimeout(function() {console.log("I eat balls")}, 1000)
-});
+
+export function recieveMessage(str : string) {
+    exec(`echo '${str}' > r.py`, (error, stdout, stderr) => {
+        if (error) {
+            console.log(`error: ${error.message}`);
+            return `error: ${error.message}`
+        }
+        if (stderr) {
+            console.log(`stderr: ${stderr}`);
+            return `stderr: ${stderr}`
+        }
+        exec(`python r.py`, (error, stdout, stderr) => {
+            if (error) {
+                console.log(`error: ${error.message}`);
+                return `error: ${error.message}`
+            }
+            if (stderr) {
+                console.log(`stderr: ${stderr}`);
+                return `stderr: ${stderr}`;
+            }
+            return stdout
+        });
+    });
+}

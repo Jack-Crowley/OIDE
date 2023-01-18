@@ -1,4 +1,5 @@
 import {RawData, Server, WebSocket} from 'ws';
+import { recieveMessage } from "./python"
 // Set up server
 const port = 8080;
 
@@ -11,11 +12,17 @@ wss.on('connection', function connection(ws: WebSocket) {
 
     // Wire up logic for the message event (when a client sends something)
     ws.on('message', function incoming(message: RawData) {
-        
+        let header = message.slice(0,3).toString();
+        let fullMsg = message.slice(4, message.toString().length).toString();
+
+        switch (header) {
+            case "pyt":
+                ws.send(`Output: ${recieveMessage(fullMsg)}`);
+                break;
+        }
     });
 
-    // Send a message
-    ws.send('Hello client!');
+    
 });
 
 export {};
