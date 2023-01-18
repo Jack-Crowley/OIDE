@@ -9,8 +9,7 @@ socket.addEventListener('open', function (event: Event) {
         socket.send('Hello Server!'+i++);
         if (i > 10) {
             socket.close();
-            clearInterval(intervalID);
-            
+            clearInterval(intervalID);   
         }
     },100)
 
