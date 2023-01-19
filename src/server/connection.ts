@@ -1,9 +1,9 @@
-import WebSocket, {RawData} from 'ws';
+import {WebSocket, RawData, Server} from 'ws';
 import { recieveMessage } from "./python.js"
 // Set up server
 const port = 8080;
 
-const wss: WebSocket.Server = new WebSocket.Server({ port: port });
+const wss: Server = new Server({ port: port });
 
 console.log(`Started on port ${port}`)
 
@@ -12,18 +12,21 @@ wss.on('connection', function connection(ws: WebSocket) {
 
     // Wire up logic for the message event (when a client sends something)
     ws.on('message', function incoming(message: RawData) {
+        
+
         let messageStr = JSON.parse(message.toString())
         let header = messageStr.head;
         let fullMsg = messageStr.msg;
 
+        console.log(`Message received!!! Header: ${header}; Message ${fullMsg}`)
+
         switch (header) {
             case "pyt":
-                ws.send(`Output: ${recieveMessage(fullMsg)}`);
+                let output : string = recieveMessage(fullMsg);
+                ws.send(`Output: ${output}`);
                 break;
         }
     });
 
     
 });
-
-export {};

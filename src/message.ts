@@ -7,6 +7,5 @@ export class JSONMessage {
         this.msg = msg;
     }
 }
-
-let msg: JSONMessage = new JSONMessage("pyt", "print(\"Hello World\")");
-console.log(JSON.stringify(msg))
+// let msg: JSONMessage = new JSONMessage("pyt", "print(\"Hello World\")");
+// console.log(JSON.stringify(msg))

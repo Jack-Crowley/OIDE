@@ -6,6 +6,7 @@ const msg = new JSONMessage("pyt", "print(\"Hello World \")");
 
 // Connection opened
 socket.addEventListener('open', function (event: Event) {
+    console.log("Sending Message")
     socket.send(JSON.stringify(msg));
 });
 
