@@ -1,6 +1,6 @@
 import { exec } from "child_process";
 
-export function recieveMessage(str : string) : string {
+export async function recieveMessage(str : string) : Promise<string> {
     let finalOut : string = "Default";
     exec(`echo '${str}' > r.py`, (error, stdout, stderr) => {
         if (error) {

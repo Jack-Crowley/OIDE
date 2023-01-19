@@ -11,7 +11,7 @@ console.log(`Started on port ${port}`)
 wss.on('connection', function connection(ws: WebSocket) {
 
     // Wire up logic for the message event (when a client sends something)
-    ws.on('message', function incoming(message: RawData) {
+    ws.on('message', async function incoming(message: RawData) {
         
 
         let messageStr = JSON.parse(message.toString())
@@ -22,7 +22,8 @@ wss.on('connection', function connection(ws: WebSocket) {
 
         switch (header) {
             case "pyt":
-                let output : string = recieveMessage(fullMsg);
+                let output : string = await recieveMessage(fullMsg);
+                console.log(output);
                 ws.send(`Output: ${output}`);
                 break;
         }
