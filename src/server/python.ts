@@ -2,7 +2,7 @@ import { exec} from 'child_process'
 import { WebSocket } from "ws";
 
 
-export async function recieveMessage(str : string, ws : WebSocket) : Promise<void> {
+export function recieveMessage(str : string, ws : WebSocket) : void {
     exec(`echo '${str}' > r.py`, (error, stdout, stderr) => {
         exec(`python r.py`, (error, stdout, stderr) => {
             if (error) {
