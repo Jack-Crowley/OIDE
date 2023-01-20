@@ -1,18 +1,18 @@
-import { exec } from "child_process";
-import {promisify} from "util"
-
-const execute = promisify(exec);
+import { exec} from 'child_process'
+import { WebSocket } from "ws";
 
 
-export async function recieveMessage(str : string) : Promise<string> {
-    await execute(`echo '${str}' > r.py`);
-    try {
-        let {stdout, stderr} = await execute(`python r.py`);
-        console.log(stderr+":"+stdout)
-        return stdout;
-    }
-    catch {
-        console.log("Error");
-        return "Error";
-    }
+export async function recieveMessage(str : string, ws : WebSocket) : Promise<void> {
+    exec(`echo '${str}' > r.py`, (error, stdout, stderr) => {
+        exec(`python r.py`, (error, stdout, stderr) => {
+            if (error) {
+                console.log(error);
+                ws.send(""+error);
+            }
+            else {
+                ws.send(stdout);
+            }
+        });
+    });
+    
 }
