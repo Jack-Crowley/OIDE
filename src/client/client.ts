@@ -17,7 +17,7 @@ export class Client {
 
     public sendMessage(header : string, message : string) {
         if (this.socket.readyState == WebSocket.OPEN) {
-            let msg = {message: message, header}
+            let msg = {head: header, msg: message} as JSONMessage;
             this.socket.send(JSON.stringify(msg));
         }
     }
