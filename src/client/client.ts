@@ -1,17 +1,24 @@
 import { WebSocket, Event, MessageEvent } from "ws";
 import { JSONMessage } from "../message.js";
+
 // Create WebSocket connection.
-const socket = new WebSocket('ws://150.136.218.146:8080'); 
-const msg = new JSONMessage("pyt", "print(\"Hello World\")");
 
-// Connection opened
-socket.addEventListener('open', function (event: Event) {
-    console.log("Sending Message")
-    socket.send(JSON.stringify(msg));
-});
+export class Client {
+    private socket = new WebSocket('ws://150.136.218.146:8080'); 
 
-// Listen for messages
-socket.addEventListener('message', function (event: MessageEvent) {
-    console.log('Message from server ', event.data);
-    socket.close();
-});
+    constructor() {
+        this.socket.addEventListener('open', () => {
+            console.log("Connected")
+        })
+        this.socket.addEventListener('message', function (event: MessageEvent) {
+            console.log('Message from server ', event.data);
+        });
+    }
+
+    public sendMessage(header : string, message : string) {
+        if (this.socket.readyState == WebSocket.OPEN) {
+            let msg = {message: message, header}
+            this.socket.send(JSON.stringify(msg));
+        }
+    }
+}
