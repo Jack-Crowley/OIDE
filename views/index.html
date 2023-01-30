@@ -7,9 +7,32 @@
     <title>Document</title>
     <link rel="stylesheet" href="./index.css">
     <script src="client.js"></script>
+    <link
+		rel="stylesheet"
+		data-name="vs/editor/editor.main"
+		href="../node_modules/monaco-editor/min/vs/editor/editor.main.css"
+	/>
+    
 </head>
 <body>
-    <textarea name="" id="" cols="30" rows="10"></textarea>
+    <!-- <textarea name="" id="container" cols="30" rows="10"></textarea> -->
+
+    <div id="container" style="width: 800px; height: 600px; border: 1px solid grey"></div>
+
+		<script>
+			var require = { paths: { vs: '../node_modules/monaco-editor/min/vs' } };
+		</script>
+		<script src="../node_modules/monaco-editor/min/vs/loader.js"></script>
+		<script src="../node_modules/monaco-editor/min/vs/editor/editor.main.nls.js"></script>
+		<script src="../node_modules/monaco-editor/min/vs/editor/editor.main.js"></script>
+
+		<script>
+			var editor = monaco.editor.create(document.getElementById('container'), {
+				//value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),
+				language: 'python'
+			});
+		</script>
     <button>Run Code</button>
+    
 </body>
 </html>
