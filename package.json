@@ -7,12 +7,12 @@
   },
   "dependencies": {
     "child_process": "^1.0.2",
-    "monaco-editor": "^0.34.1"
+    "monaco-editor": "^0.34.1",
+    "ts-loader": "^9.4.2"
   },
   "name": "midyear2023",
   "version": "1.0.0",
   "main": "client/client.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
