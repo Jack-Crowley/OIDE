@@ -1,0 +1,16 @@
+textarea {
+    height: 80vh;
+    font-size: 1em;
+    width: 100%;
+}
+
+button {
+    margin: auto;
+    background-color: #97dba2;
+    border: 1px solid #649b6d;
+    font-size: 2em;
+}
+
+button:hover {
+    cursor: pointer;
+}
