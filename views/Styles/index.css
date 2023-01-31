@@ -1,0 +1,68 @@
+.IDE {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    width: 99vw;
+    height: 90vh;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+.nav {
+    height: 10vh;
+    width: 100%;
+    background-color: #555555;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+textarea {
+    margin: 3%;
+    width: 90%;
+    height: 90%;
+    font-size: 2em;
+    resize: none;
+    color: white
+}
+
+.code textarea {
+    background-color: #323232;   
+}
+
+textarea, textarea:focus {
+    border-style: none; 
+    border-color: Transparent; 
+    outline: none;
+    overflow: auto;        
+}
+
+.tabs {
+    background-color: #454545;
+}
+
+.editor {
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+}
+
+.code {
+    background-color: #323232;
+}
+
+.terminal {
+    color: white;
+    background-color: #212121;
+}
+
+button {
+    background-color: #97dba2;
+    border: 1px solid #649b6d;
+    font-size: 2em;
+}
+
+button:hover {
+    cursor: pointer;
+}
