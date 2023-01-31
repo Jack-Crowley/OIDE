@@ -19,24 +19,30 @@ body, html {
     align-items: center;
 }
 
-textarea {
+/* textarea {
     margin: 3%;
     width: 90%;
     height: 90%;
     font-size: 2em;
     resize: none;
     color: white
-}
+} */
 
-.code textarea {
+.code div.container {
     background-color: #323232;   
 }
 
-textarea, textarea:focus {
+/* div, div:focus {
     border-style: none; 
     border-color: Transparent; 
     outline: none;
     overflow: auto;        
+} */
+
+div.container {
+    /* width: 800px;
+    height: 600px; */
+    border: 1px solid grey;
 }
 
 .tabs {
