@@ -1,21 +1,17 @@
 {
   "devDependencies": {
-    "@types/node": "^18.11.18",
-    "@types/ws": "^8.5.4",
-    "typescript": "^4.9.4",
     "ws": "^8.12.0"
   },
   "dependencies": {
-    "child_process": "^1.0.2",
-    "monaco-editor": "^0.34.1",
-    "ts-loader": "^9.4.2"
+    "child_process": "^1.0.2"
   },
   "name": "midyear2023",
   "version": "1.0.0",
   "main": "client/client.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "start": "webpack serve --mode=development --open",
+    "build": "webpack --config webpack-prod.config.js",
+    "dev": "webpack --mode development"
   },
   "repository": {
     "type": "git",
