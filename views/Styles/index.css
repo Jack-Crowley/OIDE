@@ -66,3 +66,7 @@ button {
 button:hover {
     cursor: pointer;
 }
+
+p.err {
+    color: red;
+}

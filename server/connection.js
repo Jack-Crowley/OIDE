@@ -1,6 +1,5 @@
-import {WebSocket, RawData, Server} from 'ws';
-import { JSONMessage } from '../message.js';
-import { recieveMessage } from "./python.js"
+const {WebSocket, RawData, Server} = require('ws');
+const { recieveMessage } = require("./python.js")
 // Set up server
 const port = 8080;
 
@@ -13,7 +12,7 @@ wss.on('connection', function connection(ws) {
     // Wire up logic for the message event (when a client sends something)
     ws.on('message', async function incoming(message) {
         let messageStr = JSON.parse(message.toString());
-        let Header = messageStr.head;
+        let header = messageStr.head;
         let fullMsg = messageStr.msg;
 
         console.log(`Message received!!! Header: ${header}; Message ${fullMsg}`)
