@@ -5,10 +5,11 @@ socket.addEventListener('open', () => {
 })
 
 socket.addEventListener('message', function (event) {
-    let x = document.createElement("p");
-    x.textContent=event.data
-    document.querySelector('.terminal').appendChild(x)
-    console.log('Message from server ', event.data);
+    let x = document.querySelector(".terminal>p");
+    console.log(JSON.parse(event.data).msg)
+    x.textContent = JSON.parse(event.data).msg
+    //document.querySelector('.terminal').appendChild(x)
+    console.log('Message from server:', event.data);
 });
 
 function sendMessage(header, message) {

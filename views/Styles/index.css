@@ -61,6 +61,7 @@ div.container {
 .terminal {
     color: white;
     background-color: #212121;
+    white-space: pre-line;
 }
 
 button {
