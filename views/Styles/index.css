@@ -1,17 +1,23 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Mono', monospace;
+}
+
 .IDE {
     display: grid;
     grid-template-columns: 1fr 5fr;
     width: 99vw;
-    height: 90vh;
+    height: 94vh;
 }
 
-body, html {
-    margin: 0;
-    padding: 0;
+.editor {
+    display: grid;
+    grid-template-rows: 4fr 3fr;
 }
 
 .nav {
-    height: 10vh;
+    height: 6vh;
     width: 100%;
     background-color: #555555;
     display: flex;
@@ -19,25 +25,30 @@ body, html {
     align-items: center;
 }
 
-/* textarea {
-    margin: 3%;
-    width: 90%;
-    height: 90%;
-    font-size: 2em;
+.terminal textarea {
+    padding: 1%;
+    width: 96%;
+    height: 89%;
+    font-size: 1.5em;
     resize: none;
-    color: white
-} */
-
-.code div.container {
-    background-color: #323232;   
+    color: white;
+    background-color: #272727;
 }
 
-/* div, div:focus {
+.terminal textarea::selection {
+    background-color: rgba(117, 117, 117, 0.692);
+}
+
+textarea, textarea:focus {
     border-style: none; 
     border-color: Transparent; 
     outline: none;
     overflow: auto;        
-} */
+}
+
+.code div.container {
+    background-color: #323232;   
+}
 
 div.container {
     /* width: 800px;
@@ -49,10 +60,7 @@ div.container {
     background-color: #454545;
 }
 
-.editor {
-    display: grid;
-    grid-template-rows: 2fr 1fr;
-}
+
 
 .code {
     background-color: #323232;
@@ -60,7 +68,7 @@ div.container {
 
 .terminal {
     color: white;
-    background-color: #212121;
+    background-color: #272727;
 }
 
 button {
