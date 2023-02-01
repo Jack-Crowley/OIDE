@@ -1,21 +1,23 @@
-import { exec} from 'child_process'
-import { WebSocket } from "ws";
+const {exec} = require('child_process')
 
-
-export function recieveMessage(st, ws) {
-    exec(`echo '${str}' > r.py`, (error, stdout, stderr) => {
-        exec(`python r.py`, (error, stdout, stderr) => {
-            if (error) {
-                console.log(error);
-                ws.send(""+error);
-            }
-            else {
-                if (stdout.includes("\n")) {
-                    console.log("Testing")
+module.exports = {
+    recieveMessage : function (st, ws) {
+        exec(`echo '${st}' > r.py`, (error, stdout, stderr) => {
+            exec(`python r.py`, (error, stdout, stderr) => {
+                if (error) {
+                    console.log(error);
+                    let msg = {head: "err", msg: ""+error};
+                    ws.send(JSON.stringify(msg));
                 }
-                ws.send(stdout);
-            }
+                else {
+                    if (stdout.includes("\n")) {
+                        console.log("Testing")
+                    }
+                    let msg = {head: "out", msg: stdout};
+                    ws.send(JSON.stringify(msg));
+                }
+            });
         });
-    });
-    
+        
+    }
 }

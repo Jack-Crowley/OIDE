@@ -6,20 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../Styles/index.css">
+    <link
+		rel="stylesheet"
+		data-name="vs/editor/editor.main"
+		href="../../node_modules/monaco-editor/min/vs/editor/editor.main.css"
+	/>
 </head>
 <body>
     <div class="nav"><button>Run Code</button></div>
     <div class="IDE">
         <div class="tabs"></div>
         <div class="editor">
-            <div class="code"><textarea name="" id="" cols="30" rows="10"></textarea></div>
+            <div id="container"></div>
+
+		    <script>
+			    var require = { paths: { vs: '../../node_modules/monaco-editor/min/vs' } };
+		    </script>
+            <script src="../../node_modules/monaco-editor/min/vs/loader.js"></script>
+            <script src="../../node_modules/monaco-editor/min/vs/editor/editor.main.nls.js"></script>
+            <script src="../../node_modules/monaco-editor/min/vs/editor/editor.main.js"></script>
+
+            <script>
+                var editor = monaco.editor.create(document.getElementById('container'), {
+                    //value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),
+                    language: 'python',
+                    theme: 'vs-dark'
+                });
+                
+            </script>
             <div class="terminal">
-                <p>Terminal</p>
+                
             </div>
         </div>
     </div>
     
     <script src="../Scripts/connect.js"></script>
     <script src="../Scripts/index.js"></script>
+    <script src="../Scripts/terminal.js"></script>
 </body>
 </html>
