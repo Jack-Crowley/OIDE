@@ -9,9 +9,7 @@
   "version": "1.0.0",
   "main": "client/client.js",
   "scripts": {
-    "start": "webpack serve --mode=development --open",
-    "build": "webpack --config webpack-prod.config.js",
-    "dev": "webpack --mode development"
+    "build": ""
   },
   "repository": {
     "type": "git",
