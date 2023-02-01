@@ -39,7 +39,10 @@ function createNewLine(v="") {
 
     input.remove()
     if (value.length !== 0 && v !== value) {
-        checkValidInput()
+        if (value === "clear") {
+            term.innerHTML = ""
+        }
+        else checkValidInput()
     }
 
     current = document.createElement("p");

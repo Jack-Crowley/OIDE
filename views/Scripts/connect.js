@@ -41,6 +41,11 @@ socket.addEventListener('message', function (event) {
         }
         term.appendChild(x)
     }
+    let input = document.querySelector(".terminal input");
+    // term.scrollTop = term.scrollHeight
+    // term.selectionStart = term.selectionEnd = term.value.length;
+    // term.blur()
+    // term.focus()
     console.log('Message from server ', event.data);
 });
 
