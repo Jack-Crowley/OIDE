@@ -5,7 +5,7 @@ socket.addEventListener('open', () => {
 })
 
 socket.addEventListener('message', function (event) {
-    let x = document.querySelector(".terminal>p");
+    // let x = document.querySelector(".terminal>p");
     // console.log(JSON.parse(event.data).msg)
     // x.textContent = JSON.parse(event.data).msg
     // //document.querySelector('.terminal').appendChild(x)

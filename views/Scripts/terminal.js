@@ -25,16 +25,20 @@ term.addEventListener('click', async () => {
     input.focus();
 })
 
-function createNewLine() {
+function createNewLine(v="") {
     current.remove()
-    let value = input.value;
+    let value
+    if (v === "") {
+        value = input.value
+    } else {
+        value = v
+    }
     let x = document.createElement("p");
-    x.textContent="> "+value;
+    x.textContent="> " + value;
     term.appendChild(x);
 
     input.remove()
-
-    if (value.length > 0) {
+    if (value.length !== 0 && v !== value) {
         checkValidInput()
     }
 
@@ -51,7 +55,7 @@ function createNewLine() {
 function checkValidInput() {
     let value = input.value;
     let current = document.createElement("p");
-    current.textContent=`Error: term "${value}" is not a reconignized command`
+    current.textContent=`Error: term "${value}" is not a recognized command`
     current.classList.add("err")
     term.appendChild(current)
 }

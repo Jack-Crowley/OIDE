@@ -6,5 +6,6 @@ document.querySelector("button").addEventListener("click", () => {
     // console.log(message);
     // let Client = new Client();
     // client.sendMessage("pyt", message)
+    createNewLine("python r.py")
     sendMessage("pyt", editor.getValue())
 })
