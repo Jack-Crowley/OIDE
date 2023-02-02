@@ -1,15 +1,15 @@
 // document.querySelector('button').addEventListener('click', () => {
 //     sendMessage("pyt", document.querySelector("textArea").value)
 // })
-document.querySelector("button").addEventListener("click", () => {
-    // message = editor.getValue();
+function runPyFile(newLine=true) {
+// message = editor.getValue();
     // console.log(message);
     // let Client = new Client();
     // client.sendMessage("pyt", message)
-    createNewLine("python r.py")
+    if (newLine) createNewLine("python r.py")
     message = editor.getValue()
     message = message.replace(/'/g, '"')
-    console.log(message.length)
+    //console.log(message.length)
     // for (let i=0; i<message.length; i++) {
     //     console.log(i)
     //     if (message.charAt(i) === "'") {
@@ -17,6 +17,9 @@ document.querySelector("button").addEventListener("click", () => {
     //         i++
     //     }
     // }
-    console.log(message)
+    //console.log(message)
     sendMessage("pyt", message)
+}
+document.querySelector("button").addEventListener("click", () => {
+    runPyFile()
 })
