@@ -6,7 +6,7 @@ body, html {
 
 .IDE {
     display: grid;
-    grid-template-columns: 2fr 5fr;
+    grid-template-columns: 1.5fr 5fr;
     width: 100vw;
     height: 94vh;
 }
@@ -25,6 +25,11 @@ body, html {
     align-items: center;
 }
 
+.btn {
+    color: white;
+    font-family: 'Times New Roman'f;
+}
+
 .terminal {
     max-height: 37vh;
     overflow: scroll;
@@ -40,7 +45,7 @@ body, html {
 .terminal input {
     font-family: 'Roboto Mono', monospace;
     min-width: 90%;
-    font-size: 1.5em;
+    font-size: 1.0em;
     resize: none;
     color: white;
     background-color: #272727;
@@ -69,7 +74,7 @@ body, html {
 .terminal p {
     margin: 0;
     padding: 0;
-    font-size: 1.5em;
+    font-size: 1.0em;
 }
 
 .terminal::-webkit-scrollbar {
@@ -81,8 +86,8 @@ body, html {
 }
 
 div.container {
-    /* width: 800px;
-    height: 600px; */
+    width: 100%; /* 800px;
+    /* height: 600px; */
     border: 1px solid grey;
 }
 
@@ -98,6 +103,7 @@ div.container {
 
 .terminal {
     color: white;
+    background-color: #212121;
     background-color: #272727;
 }
 
