@@ -1,3 +1,16 @@
+let programtxt = document.getElementById("program").textContent;
+
+class Emulator {
+    constructor() {
+        this.cpu = new CPU();
+        this.memory = new Memory();
+        this.display = new Display(document.getElementById("screen"));
+    }
+
+    showScreen() {
+        this.display.show(this.memory);
+    }
+}
 class CPU {
     constructor() {
         this.sp = 0xFF;
@@ -7,6 +20,8 @@ class CPU {
         this.pc = 0x0600;
         this.flags = 0x00110000;
     }
+
+    
 }
 
 /* Memory Layout:
@@ -24,16 +39,20 @@ class Memory {
     setAddr(addr, val) {
         this.mem[addr] = val;
     }
+
+    getVal(addr) {
+        return this.mem[addr];
+    }
 }
 
 class Display {
     constructor(canvas) {
         this.screen = canvas;
         this.ctx = canvas.getContext("2d");
-        this.palette = ["#000000", "#ffffff", "#880000", "#aaffee",
-                        "#cc44cc", "#00cc55", "#663399", "#eeee77",
-                        "#dd8855", "#664400", "#ff7777", "#333333",
-                        "#777777", "#aaff66", "#0088ff", "#bbbbbb"];
+        this.palette = ["#000000", "#ffffff", "#663399", "#003F91",
+                        "#FF6542", "#85FFC7", "#358600", "#C9CBA3",
+                        "#723D46", "#02C3BD", "#EDA4BD", "#FFAF87", 
+                        "#330036", "#FF1654", "#C2AFF0", "#28666E"];
         this.width = this.screen.width;
         this.height = this.screen.height;
     }
@@ -49,7 +68,5 @@ class Display {
     }
 }
 
-let cpu = new CPU();
-let memory = new Memory();
-let display = new Display(document.getElementById("screen"));
-display.show(memory);
+let emu = new Emulator();
+emu.showScreen();
