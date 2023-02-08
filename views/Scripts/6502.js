@@ -1,4 +1,3 @@
-let programtxt = document.getElementById("program").textContent;
 
 class Emulator {
     constructor() {
@@ -10,6 +9,10 @@ class Emulator {
     showScreen() {
         this.display.show(this.memory);
     }
+
+    inputProgram(program) {
+
+    }
 }
 class CPU {
     constructor() {
@@ -19,6 +22,63 @@ class CPU {
         this.y = 0x00;
         this.pc = 0x0600;
         this.flags = 0x00110000;
+        /*               Name  */
+        this.opcodes = [["ADC", ],
+                        ["AND"],
+                        ["ASL"],
+                        ["BCC"],
+                        ["BCS"],
+                        ["BEQ"],
+                        ["BIT"],
+                        ["BMI"],
+                        ["BNE"],
+                        ["BPL"],
+                        ["BRK"],
+                        ["BVC"],
+                        ["BVS"],
+                        ["CLC"],
+                        ["CLD"],
+                        ["CLI"],
+                        ["CLV"],
+                        ["CMP"],
+                        ["CPX"],
+                        ["CPY"],
+                        ["DEC"],
+                        ["DEX"],
+                        ["DEY"],
+                        ["EOR"],
+                        ["INC"],
+                        ["INX"],
+                        ["INY"],
+                        ["JMP"],
+                        ["JSR"],
+                        ["LDA"],
+                        ["LDX"],
+                        ["LDY"],
+                        ["LSR"],
+                        ["NOP"],
+                        ["ORA"],
+                        ["PHA"],
+                        ["PHP"],
+                        ["PLA"],
+                        ["PLP"],
+                        ["ROL"],
+                        ["ROR"],
+                        ["RTI"],
+                        ["RTS"],
+                        ["SBC"],
+                        ["SEC"],
+                        ["SED"],
+                        ["SEI"],
+                        ["STA"],
+                        ["STX"],
+                        ["STY"],
+                        ["TAX"],
+                        ["TAY"],
+                        ["TSX"],
+                        ["TXA"],
+                        ["TXS"],
+                        ["TYA"]]
     }
 
     
