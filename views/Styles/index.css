@@ -1,0 +1,122 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.IDE {
+    display: grid;
+    grid-template-columns: 1.5fr 5fr;
+    width: 100vw;
+    height: 94vh;
+}
+
+.editor {
+    display: grid;
+    grid-template-rows: 4fr 3fr;
+}
+
+.nav {
+    height: 6vh;
+    width: 100%;
+    background-color: #555555;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    color: white;
+    font-family: 'Times New Roman'f;
+}
+
+.terminal {
+    max-height: 37vh;
+    overflow: scroll;
+    padding: 1% 3%;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.err {
+    color: red
+}
+
+.terminal input {
+    font-family: 'Roboto Mono', monospace;
+    min-width: 90%;
+    font-size: 1.0em;
+    resize: none;
+    color: white;
+    background-color: #272727;
+    display: inline;
+}
+
+.terminal textarea::selection {
+    background-color: rgba(117, 117, 117, 0.692);
+}
+
+.current {
+    display: inline;
+}
+
+.formerInput {
+    display: inline-block;
+}
+
+.terminal input, .terminal input:focus {
+    border-style: none; 
+    border-color: Transparent; 
+    outline: none;
+    overflow: auto;        
+}
+
+.terminal p {
+    margin: 0;
+    padding: 0;
+    font-size: 1.0em;
+}
+
+.terminal::-webkit-scrollbar {
+    display: none;
+}
+
+.code div.container {
+    background-color: #323232;   
+}
+
+div.container {
+    width: 100%; /* 800px;
+    /* height: 600px; */
+    border: 1px solid grey;
+}
+
+.tabs {
+    background-color: #454545;
+}
+
+
+
+.code {
+    background-color: #323232;
+}
+
+.terminal {
+    color: white;
+    background-color: #212121;
+    background-color: #272727;
+}
+
+button {
+    background-color: #97dba2;
+    border: 1px solid #649b6d;
+    font-size: 2em;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+p.err {
+    color: red;
+}

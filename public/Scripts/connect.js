@@ -5,6 +5,11 @@ socket.addEventListener('open', () => {
 })
 
 socket.addEventListener('message', function (event) {
+    // let x = document.querySelector(".terminal>p");
+    // console.log(JSON.parse(event.data).msg)
+    // x.textContent = JSON.parse(event.data).msg
+    // //document.querySelector('.terminal').appendChild(x)
+    // console.log('Message from server:', event.data);
     let messageStr = JSON.parse(event.data.toString());
     let header = messageStr.head;
     let fullMsg = messageStr.msg;
@@ -36,6 +41,11 @@ socket.addEventListener('message', function (event) {
         }
         term.appendChild(x)
     }
+    let input = document.querySelector(".terminal input");
+    // term.scrollTop = term.scrollHeight
+    // term.selectionStart = term.selectionEnd = term.value.length;
+    // term.blur()
+    // term.focus()
     console.log('Message from server ', event.data);
 });
 
