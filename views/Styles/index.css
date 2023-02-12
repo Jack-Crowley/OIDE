@@ -2,15 +2,57 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: 'Roboto Mono', monospace;
+<<<<<<< HEAD
+=======
+    overflow: none;
+    background-color: #272727;
+>>>>>>> parent of 49cb2de (random Things)
 }
 
 .IDE {
     display: grid;
+<<<<<<< HEAD
     grid-template-columns: 1.5fr 5fr;
+=======
+    grid-template-columns: 1fr 6fr;
+>>>>>>> parent of 49cb2de (random Things)
     width: 100vw;
     height: 94vh;
 }
 
+<<<<<<< HEAD
+=======
+.fileExplorer {
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #393939;
+}
+
+.fileExplorer h2 {
+    font-size: 1.5em ;
+}
+
+.fileHeader {
+    display: inline;
+}
+
+.newFile:hover {
+    cursor: pointer;
+}
+
+.newFile {
+    background-color: red;
+    padding: 1%;
+    display: inline-block;
+}
+
+.files img {
+    max-height: 1.5em;
+}
+
+>>>>>>> parent of 49cb2de (random Things)
 .editor {
     display: grid;
     grid-template-rows: 4fr 3fr;
@@ -25,23 +67,37 @@ body, html {
     align-items: center;
 }
 
+<<<<<<< HEAD
 .btn {
     color: white;
     font-family: 'Times New Roman'f;
 }
 
+=======
+>>>>>>> parent of 49cb2de (random Things)
 .terminal {
     max-height: 37vh;
     overflow: scroll;
     padding: 1% 3%;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+<<<<<<< HEAD
+=======
+    color: white;
+    background-color: #272727;
+}
+
+.currentItem {
+    display: grid;
+    grid-template-columns: auto 1fr;
+>>>>>>> parent of 49cb2de (random Things)
 }
 
 .err {
     color: red
 }
 
+<<<<<<< HEAD
 .terminal input {
     font-family: 'Roboto Mono', monospace;
     min-width: 90%;
@@ -58,13 +114,48 @@ body, html {
 
 .current {
     display: inline;
+=======
+.startingDiv {
+    white-space: nowrap;
+}
+
+.currentItem div {
+    font-family: 'Roboto Mono', monospace;
+    padding-left: 1%;
+    font-size: 1.5em;
+    resize: none;
+    color: white;
+    background-color: #272727;
+    display: inline-block;
+}
+
+.terminalInput {
+    min-width: 80%;
+
+}
+
+.terminalInput::selection {
+    background-color: rgba(117, 117, 117, 0.692);
+}
+
+.gold {
+    color: gold
+}
+
+.current {
+    display: inline-block;
+>>>>>>> parent of 49cb2de (random Things)
 }
 
 .formerInput {
     display: inline-block;
 }
 
+<<<<<<< HEAD
 .terminal input, .terminal input:focus {
+=======
+.terminalInput, .terminalInput:focus {
+>>>>>>> parent of 49cb2de (random Things)
     border-style: none; 
     border-color: Transparent; 
     outline: none;
@@ -74,13 +165,18 @@ body, html {
 .terminal p {
     margin: 0;
     padding: 0;
+<<<<<<< HEAD
     font-size: 1.0em;
+=======
+    font-size: 1.5em;
+>>>>>>> parent of 49cb2de (random Things)
 }
 
 .terminal::-webkit-scrollbar {
     display: none;
 }
 
+<<<<<<< HEAD
 .code div.container {
     background-color: #323232;   
 }
@@ -91,6 +187,18 @@ div.container {
     border: 1px solid grey;
 }
 
+=======
+.container { 
+    background-color: #323232;   
+    display: none;
+}
+
+div.activeContainer {
+    display: block;
+}
+
+
+>>>>>>> parent of 49cb2de (random Things)
 .tabs {
     background-color: #454545;
 }
@@ -101,12 +209,15 @@ div.container {
     background-color: #323232;
 }
 
+<<<<<<< HEAD
 .terminal {
     color: white;
     background-color: #212121;
     background-color: #272727;
 }
 
+=======
+>>>>>>> parent of 49cb2de (random Things)
 button {
     background-color: #97dba2;
     border: 1px solid #649b6d;
@@ -119,4 +230,57 @@ button:hover {
 
 p.err {
     color: red;
+<<<<<<< HEAD
+=======
+    display: block;
+}
+
+p.good {
+    color: green;
+}
+
+.terminalInput br {
+    display: inline;
+}
+
+.good, .err {
+    display: block;
+}
+
+.statement {
+    color: orange;
+}
+
+.file {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    padding: 3% 10%;
+}
+
+.files {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    flex-direction: column;
+}
+
+.file p {
+    display: none;
+}
+
+.file h3 {
+    font-size: 1.5em;
+    padding-left: 20px;
+    color: white;
+    margin: 0;
+}
+
+.fileActive {
+    background-color: #545454;   
+}
+
+.file:hover {
+    background-color: #272727;
+    cursor: pointer;
+>>>>>>> parent of 49cb2de (random Things)
 }
