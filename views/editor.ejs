@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OIDE</title>
+    <link rel="stylesheet" href="../Styles/index.css">
+    <link
+		rel="stylesheet"
+		data-name="vs/editor/editor.main"
+		href="/module/monaco-editor/min/vs/editor/editor.main.css"
+	/>
+</head>
+<body>
+    <div class="nav"><button>Run Code</button></div>
+    <div class="IDE">
+        <div class="tabs">
+            <div class="">
+                <div class="fileExplorer">
+                    <h2 class="fileHeader">File System</h2>
+                    <h2 class="newFile">+</h2>
+                </div>
+                <div class="files"></div>
+            </div>
+        </div>
+        <div class="editor">
+            <div class="container activeContainer"></div>
+		    <script>
+			    var require = { paths: { vs: '/module/monaco-editor/min/vs' } };
+		    </script>
+            <script src="/module/monaco-editor/min/vs/loader.js"></script>
+            <script src="/module/monaco-editor/min/vs/editor/editor.main.nls.js"></script>
+            <script src="/module/monaco-editor/min/vs/editor/editor.main.js"></script>
+
+            <script>
+                let editor = monaco.editor.create(document.querySelector('.container'), {
+                    language: 'python',
+                    theme: 'vs-dark',
+                    fontSize: "20px"
+                });
+            </script>
+            <div class="terminal">
+                <div class="prevHistory"></div>
+                <div class="currentItem"></div>
+            </div>
+        </div>
+    </div>
+    <script src="/Scripts/fileSystem.js"></script>
+    <script src="/Scripts/connect.js"></script>
+    <script src="/Scripts/index.js"></script>
+    <script src="/Scripts/terminal.js"></script>
+</body>
+</html>
