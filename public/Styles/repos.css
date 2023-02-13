@@ -1,0 +1,13 @@
+
+
+.delete {
+    color: red;
+}
+
+.rightClickMenu {
+    display: none;
+    position: absolute;
+    text-align: center;
+    background: black;
+    border: 1px solid black;
+}

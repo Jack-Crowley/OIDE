@@ -5,12 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/Styles/repos.css">
 </head>
 <body>
     <img src="<%= picture %>" alt="">
+    <% let reposPARSED = JSON.parse(repos) %>
+    <% for(var i=0; i<reposPARSED.length; i++) {%>
+        <h1 class="repo"><%= reposPARSED[i].repoName %></h1>
+    <% } %>
 
-    <% for(var i=0; i<repos.length; i++) {%>
-        <h1><%= repos[i] %></h1>
-     <% } %>
+    <div class="rightClickMenu">
+        <form action="" method="post" class="rightClickForm">
+            <input type="submit" value="Delete" class="delete">
+        </form>
+    </div>
+
+    <form action="/addrepo/" method="post">
+        <input type="text" name="repoName" autocomplete="off">
+        <input type="submit" value="Add Repo">
+    </form>
+
+    <script src="/Scripts/repos.js"></script>i
 </body>
 </html>

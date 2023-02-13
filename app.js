@@ -20,10 +20,10 @@ const config = {
 };
 
 app.use(logger("dev"));
-
 app.use('/module', express.static(__dirname + '/node_modules'));
 app.use(express.static(__dirname + '/public'));
 app.use(auth(config));
+app.use( express.urlencoded({ extended: false }) );
 
 app.set( "views",  __dirname + "/views");
 app.set( "view engine", "ejs" );
@@ -31,6 +31,28 @@ app.set( "view engine", "ejs" );
 const getAccountID = fs.readFileSync(__dirname + "\\db\\queries\\SelectAccountID.sql", { encoding: "UTF-8" })
 const selectRepos = fs.readFileSync(__dirname + "\\db\\queries\\selectRepos.sql", { encoding: "UTF-8" })
 const createAccount = fs.readFileSync(__dirname + "\\db\\queries\\insertAccount.sql", { encoding: "UTF-8" })
+const createRepo = fs.readFileSync(__dirname + "\\db\\queries\\insertRepo.sql", { encoding: "UTF-8" })
+
+app.post("/addrepo/", ( req, res ) => {
+    let data = JSON.parse(JSON.stringify(req.oidc.user))
+    db.execute(getAccountID, [data.email], (error, results) => {
+        if (error) 
+            throw error;
+        if (results.length != 0) {
+            let idString = JSON.stringify(results).toString()
+            let id = JSON.parse(idString.substring(1, idString.length-1)).id
+            db.execute(createRepo, [req.body.repoName, id], (error, resu) => { 
+                db.execute(selectRepos, [id], (error, resu) => { 
+                    res.redirect("/repos")
+                });
+            });
+        }
+        else {
+            db.execute(createAccount, [data.nickname, data.email]);
+            res.send("Account Created")
+        }
+    });
+})
 
 app.get('/', (req, res) => {
     if (!req.oidc.isAuthenticated()) {
@@ -52,13 +74,15 @@ app.get( "/repo", ( req, res ) => {
 
 app.get( "/repos", requiresAuth(), ( req, res ) => {
     let data = JSON.parse(JSON.stringify(req.oidc.user))
-    db.execute(getAccountID, [data.email], 
-        (error, results) => {
-            console.log(results)
+    db.execute(getAccountID, [data.email], (error, results) => {
             if (error) 
                 throw error;
             if (results.length != 0) {
-                res.send(JSON.stringify(results))
+                let idString = JSON.stringify(results).toString()
+                let id = JSON.parse(idString.substring(1, idString.length-1)).id
+                db.execute(selectRepos, [id], (error, resu) => { 
+                    res.render("repos", {picture : data.picture, repos : JSON.stringify(resu).toString()})
+                });
             }
             else {
                 db.execute(createAccount, [data.nickname, data.email]);
