@@ -1,0 +1,5 @@
+CREATE TABLE account (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `accountName` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(150) NOT NULL,
+  PRIMARY KEY (`id`));

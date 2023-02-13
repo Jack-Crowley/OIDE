@@ -1,0 +1,124 @@
+div.img {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/Images/homepage.jpg");
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+html, body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.imgTextDiv h1 {
+   margin: 0;
+}
+
+.imgTextDiv {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top:30%;
+    text-align: center;
+    color:white;
+    font-size: 4em;
+}
+
+.imageDescription span {
+    color: #b036cc;
+}
+
+.imageDescription {
+    font-size: 0.7em;
+}
+
+.imageHeader {
+    color: #d1bd09;
+}
+
+.imageHeader span {
+    color:white;
+}
+
+.btn {
+    margin-top: 100px;
+    background-color: #d1bd09;
+    color: white;
+    font-size: 0.6em;
+    text-decoration: none;
+    display:inline-block;
+    padding: 5px;
+}
+
+.btn:hover {
+    background-color: #d1bd09;
+}
+
+.nav {
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 10vh;
+    z-index: 99;
+    display: flex;
+    color: white;
+    justify-content: space-around;
+}
+
+.tabs, .logo, .signIn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.tabs a:hover, .logo a:hover, .signIn a:hover {
+    cursor: pointer;
+}
+
+.tabs h3 {
+    padding: 10px;
+    display: inline;
+}
+
+.signUp {
+    background-color: #d1bd09;
+    padding: 6px;
+}
+
+.signUp:hover {
+    background-color: #d1bd09d4;
+}
+
+.signIn a, .logo a, .tabs a {
+    text-decoration: none;
+    color:white;
+    font-size: 1.3em;
+    font-weight: bold;
+    padding:10px;
+}
+
+.logOut {
+    background-color: #d5370bd4;
+    padding: 6px;
+}
+
+.logOut:hover {
+    background-color: #d5370bd4;
+}
+
+#profileImg {
+    height: 50%;
+    border-radius: 50%;
+}
+
+.tabs a:hover {
+    background-color: rgba(255,255,255,0.3);
+}
