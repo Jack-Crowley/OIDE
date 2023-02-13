@@ -12,6 +12,7 @@ function runPyFile(newLine=true) {
     let newLineTxt;
     let head;
     console.log(editor.language)
+    console.log(editor.getModel().getLanguageIdentifier().language)
     
     switch (editor.language) {
         case "python":
@@ -21,6 +22,10 @@ function runPyFile(newLine=true) {
         case "c":
             newLineTxt = "./a.out";
             head = "gcc";
+            break;
+        case "cpp":
+            newLineTxt = "./a.out";
+            head = "cpp";
             break;
     }
     console.log(newLineTxt)
