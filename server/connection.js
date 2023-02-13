@@ -1,5 +1,6 @@
 const {WebSocket, RawData, Server} = require('ws');
-const { recieveMessage } = require("./python.js")
+const { recieveMessagePyt } = require("./python.js")
+const { recieveMessageC } = require("./c.js")
 // Set up server
 const port = 8080;
 
@@ -19,7 +20,10 @@ wss.on('connection', function connection(ws) {
 
         switch (header) {
             case "pyt":
-                recieveMessage(fullMsg, ws);
+                recieveMessagePyt(fullMsg, ws);
+                break;
+            case "gcc":
+                recieveMessageC(fullMsg, ws);
                 break;
         }
     });

@@ -1,9 +1,9 @@
 const {exec} = require('child_process')
 
 module.exports = {
-    recieveMessagePyt : function (st, ws) {
-        exec(`echo '${st}' > r.py`, (error, stdout, stderr) => {
-            exec(`python r.py`, (error, stdout, stderr) => {
+    recieveMessageC : function (st, ws) {
+        exec(`echo '${st}' > r.c`, (error, stdout, stderr) => {
+            exec(`gcc r.c`, (error, stdout, stderr) => {
                 if (error) {
                     console.log(error);
                     let msg = {head: "err", msg: ""+error};
@@ -17,6 +17,10 @@ module.exports = {
                     ws.send(JSON.stringify(msg));
                 }
             });
+            exec(`./a.out`, (error, stdout, stderr) => {
+                let msg = {head: "out", msg: stdout};
+                ws.send(JSON.stringify(msg));
+            })
         });
         
     }
