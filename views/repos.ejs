@@ -10,9 +10,13 @@
 <body>
     <img src="<%= picture %>" alt="">
     <% let reposPARSED = JSON.parse(repos) %>
-    <% for(var i=0; i<reposPARSED.length; i++) {%>
-        <h1 class="repo"><%= reposPARSED[i].repoName %></h1>
-    <% } %>
+    <div class="repos">
+        <% for(var i=0; i<reposPARSED.length; i++) {%>
+            <div style="background-color: #<%= reposPARSED[i].color %>" class="repo">
+                <h1><%= reposPARSED[i].repoName %></h1>
+            </div>
+        <% } %>
+    </div>
 
     <div class="rightClickMenu">
         <form action="" method="post" class="rightClickForm">
