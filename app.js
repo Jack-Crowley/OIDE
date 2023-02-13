@@ -1,6 +1,8 @@
 const express = require( "express" );
 const logger = require("morgan");
 const dotenv = require('dotenv');
+const db = require("./db/connectPool")
+const fs = require("fs")
 const app = express();
 const port = 3000;
 
@@ -26,6 +28,10 @@ app.use(auth(config));
 app.set( "views",  __dirname + "/views");
 app.set( "view engine", "ejs" );
 
+const getAccountID = fs.readFileSync(__dirname + "\\db\\queries\\SelectAccountID.sql", { encoding: "UTF-8" })
+const selectRepos = fs.readFileSync(__dirname + "\\db\\queries\\selectRepos.sql", { encoding: "UTF-8" })
+const createAccount = fs.readFileSync(__dirname + "\\db\\queries\\insertAccount.sql", { encoding: "UTF-8" })
+
 app.get('/', (req, res) => {
     if (!req.oidc.isAuthenticated()) {
         res.render("homeLoggedOut")
@@ -43,6 +49,26 @@ app.get('/', (req, res) => {
 app.get( "/repo", ( req, res ) => {
     res.render("editor");
 } );
+
+app.get( "/repos", requiresAuth(), ( req, res ) => {
+    let data = JSON.parse(JSON.stringify(req.oidc.user))
+    db.execute(getAccountID, [data.email], 
+        (error, results) => {
+            console.log(results)
+            if (error) 
+                throw error;
+            if (results.length != 0) {
+                res.send(JSON.stringify(results))
+            }
+            else {
+                db.execute(createAccount, [data.nickname, data.email]);
+                res.send("Account Created")
+            }
+        }
+    );
+    
+} );
+
 
 app.get('/profile', requiresAuth(), (req, res) => {
     res.send(JSON.stringify(req.oidc.user));

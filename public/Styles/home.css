@@ -122,3 +122,11 @@ html, body {
 .tabs a:hover {
     background-color: rgba(255,255,255,0.3);
 }
+
+.reposButton {
+    background-color: #b036cc;
+}
+
+.reposButton:hover {
+    background-color: #b136ccbb;
+}
