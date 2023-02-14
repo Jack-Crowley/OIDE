@@ -863,6 +863,9 @@ class CPU {
     }
     
     ia9(){
+        let val = this.memory.getVal(this.pc + 1);
+        this.a = val;
+        this.pc += 2;
     }
     
     iaa(){
@@ -1546,6 +1549,24 @@ class Display {
             }
         }
     }
+    
+    clear(memoryObj) {
+        let mem = memoryObj.mem;
+        for (let i = 0; i < 1024; i++) {
+            mem.setAddr(0x0200 + i, 0);
+        }
+    }
+}
+
+function decToHex(d, padding) {
+    var hex = Number(d).toString(16);
+    padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
+
+    while (hex.length < padding) {
+        hex = "0" + hex;
+    }
+
+    return hex;
 }
 
 let emu = new Emulator();
@@ -1553,19 +1574,31 @@ emu.showScreen();
 let program = document.getElementById("program");
 let submitbtn = document.getElementById("submit");
 let runbtn = document.getElementById("run");
-let spText = document.getElementById("sp");
-let aText = document.getElementById("a");
-let xText = document.getElementById("x");
-let yText = document.getElementById("y");
-let pcText = document.getElementById("pc");
+let spText = document.getElementById("spSpan");
+let aText = document.getElementById("aSpan");
+let xText = document.getElementById("xSpan");
+let yText = document.getElementById("ySpan");
+let pcText = document.getElementById("pcSpan");
 submitbtn.onclick = () => {
-    emu.inputProgram(program.value);
+    emu.memory = new Memory()
+    emu.cpu = new CPU(emu.memory);
+    emu.display = new Display(document.getElementById("screen"));
+    for (let i = 0; i < 1024; i++) {
+        emu.memory.setAddr(0x200 + i, 0);
+    }
+    emu.showScreen();
+    emu.inputProgram(editor.getValue());
+    spText.innerHTML = `0x${decToHex(emu.cpu.sp, 2)}`;
+    aText.innerHTML = `0x${decToHex(emu.cpu.a, 2)}`;
+    xText.innerHTML = `0x${decToHex(emu.cpu.x, 2)}`;
+    yText.innerHTML = `0x${decToHex(emu.cpu.y, 2)}`;
+    pcText.innerHTML = `0x${decToHex(emu.cpu.pc, 4)}`;
 }
 runbtn.onclick = () => {
     emu.run();
-    spText.innerHTML = `SP: ${emu.cpu.sp}`;
-    aText.innerHTML = `A: ${emu.cpu.a}`;
-    xText.innerHTML = `X: ${emu.cpu.x}`;
-    yText.innerHTML = `Y: ${emu.cpu.y}`;
-    pcText.innerHTML = `PC: ${emu.cpu.pc}`;
+    spText.innerHTML = `0x${decToHex(emu.cpu.sp, 2)}`;
+    aText.innerHTML = `0x${decToHex(emu.cpu.a, 2)}`;
+    xText.innerHTML = `0x${decToHex(emu.cpu.x, 2)}`;
+    yText.innerHTML = `0x${decToHex(emu.cpu.y, 2)}`;
+    pcText.innerHTML = `0x${decToHex(emu.cpu.pc, 4)}`;
 }

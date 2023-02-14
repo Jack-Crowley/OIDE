@@ -99,14 +99,16 @@
             </script>
             <div class="term6502">
                 <div class="ca65Headers">
-                    <h3 class="sp">Stack Pointer: <span class="spSpan">0</span></h3>
-                    <h3 class="a">Accumulator: <span class="aSpan">0</span></h3>
-                    <h3 class="x">X: <span class="xSpan">0</span></h3>
-                    <h3 class="y">Y: <span class="ySpan">0</span></h3>
-                    <h3 class="pc">Program Counter: <span class="pcSpan">0x0600</span></h3>
+                    <h3 class="sp">Stack Pointer: <span id="spSpan">0</span></h3>
+                    <h3 class="a">Accumulator: <span id="aSpan">0</span></h3>
+                    <h3 class="x">X: <span id="xSpan">0</span></h3>
+                    <h3 class="y">Y: <span id="ySpan">0</span></h3>
+                    <h3 class="pc">Program Counter: <span id="pcSpan">0x0600</span></h3>
                 </div>
                 <div class="canv">
-
+                    <canvas id="screen" width="240" height="240"></canvas>
+                    <button id="submit">Assemble</button>
+                    <button id="run">Run</button>
                 </div>
             </div>
             <div class="terminal">
@@ -120,5 +122,6 @@
     <script src="/Scripts/index.js"></script>
     <script src="/Scripts/terminal.js"></script>
     <script src="/Scripts/save.js"></script>
+    <script src="/Scripts/6502.js"></script>
 </body>
 </html>
