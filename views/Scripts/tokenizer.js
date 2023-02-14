@@ -103,6 +103,7 @@ class AccumulatorAddressToken extends Token {
 
 class ImmediateToken extends Token {
     constructor(value) {
+        super();
         this.val = value;
     }
 }
@@ -134,7 +135,14 @@ class ZeroPageToken extends Token {
     }
 }
 
-class AbsIndexedToken extends Token {
+class AbsIndexedXToken extends Token {
+    constructor(addr) {
+        super();
+        this.addr = addr;
+    }
+}
+
+class AbsIndexedYToken extends Token {
     constructor(addr) {
         super();
         this.addr = addr;
@@ -143,6 +151,7 @@ class AbsIndexedToken extends Token {
 
 class ZeroPageIndexedToken extends Token {
     constructor(addr) {
+        super();
         this.addr = addr;
     }
 }
@@ -169,7 +178,7 @@ function tokenizeProgram(programStr) {
         let trimmed = elm.trimEnd();
         if (ops.includes(trimmed.slice(0, 3))) {
             let op = trimmed.slice(0, 3);
-            let addr = trimmed.slice(3).trim();
+            let addr = trimmed.slice(3).trimEnd().trimStart();
             if (addr === '') {
                 if (opcodes[ops.indexOf(op)][1] == null && opcodes[ops.indexOf(op)][3] == null) {
                     throw new SyntaxError(lineNum, elm);
@@ -181,19 +190,62 @@ function tokenizeProgram(programStr) {
                     tokenized.push([new OpToken(op), new ImpliedToken()]);
                 }
             }
-            else if (addr[0] == '(' && addr.slice(-1) == ')') {
-                if (opcodes[ops.indexOf(op)][11] == null && opcodes[ops.indexOf(op)][12] == null) {
+            else if (addr[0] == '(') {
+                if (addr.slice(-1) == ')') {
+                    if (opcodes[ops.indexOf(op)][11] != null && addr.slice(1, addr.length-1).split(',')[1].trim() === 'X') {
+                        tokenized.push([new OpToken(op), new IndexedIndirectToken(addr.slice(1, 4))]);
+                    }
+                    else {
+                        throw new SyntaxError(lineNum, elm);
+                    }
+                }
+                else if (addr.slice(-1) == 'Y') {
+                    if (opcodes[ops.indexOf(op)][12] != null && addr.split(',')[1].trim() === 'Y' && addr[4] === ')') {
+                        tokenized.push([new OpToken(op), new IndirectIndexedToken(addr.slice(1, 4))]);
+                    }
+                    else {
+                        throw new SyntaxError(lineNum, elm);
+                    }
+                }
+                else {
                     throw new SyntaxError(lineNum, elm);
                 }
-                else if (opcodes[ops.indexOf(op)][11] !=)
             }
             else if (addr[0] == '#') {
                 if (opcodes[ops.indexOf(op)][2] == null) {
                     throw new SyntaxError(lineNum, elm);
                 }
+                tokenized.push([new OpToken(op), new ImmediateToken(addr.slice(1, 4))]);
             }
             else if (addr[0] == '$') {
-                
+                if (["BCC", "BCS", "BEQ", "BMI", "BNE", "BPL", "BVC", "BVS"].includes(op)) {
+                    tokenized.push([new OpToken(op), new RelativeToken(addr.slice(0, 3))]);
+                }
+                if (addr.length > 5) {
+                    if (addr.slice(-1) === 'X') {
+                        tokenized.push([new OpToken(op), new AbsIndexedXToken(addr.slice(0, 5))]);
+                    }
+                    else if (addr.slice(-1) === 'Y') {
+                        tokenized.push([new OpToken(op), new AbsIndexedYToken(addr.slice(0, 5))]);
+                    }
+                    else {
+                        throw new SyntaxError(lineNum, elm);
+                    }
+                }
+                else if (addr.length === 5) {
+                    if (addr.slice(-1) === 'X') {
+                        tokenized.push([new OpToken(op), new ZeroPageIndexedToken(addr.slice(0, 3))]);
+                    }
+                    else {
+                        tokenized.push([new OpToken(op), new AbsoluteToken(addr)]);
+                    }
+                }
+                else if (addr.length == 3) {
+                    tokenized.push([new OpToken(op), new ZeroPageToken(addr)]);
+                }
+                else {
+                    throw new SyntaxError(lineNum, elm);
+                }
             }
         }
         else if (trimmed.slice(-1) == ':') {
