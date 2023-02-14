@@ -22,6 +22,7 @@ function load() {
         let text = document.createElement('p')
         text.textContent=file.text
         fileDiv.appendChild(text)
+        monaco.editor.setModelLanguage(editor.getModel(), file.language)
         fileDiv.dataset.fileNum = temp.files.indexOf(file)
         addFileEvent(fileDiv)
     })
@@ -44,5 +45,3 @@ function addFileEvent(file) {
         editor.setValue(newText)
     })
 }
-
-load()

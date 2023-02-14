@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OIDE</title>
-    <link rel="stylesheet" href="../Styles/index.css">
+    <link rel="stylesheet" href="/Styles/nav.css">
+    <link rel="stylesheet" href="/Styles/index.css">
     <link
 		rel="stylesheet"
 		data-name="vs/editor/editor.main"
@@ -13,16 +14,62 @@
 	/>
 </head>
 <body>
-    <div class="nav"><button>Run Code</button></div>
-    <div class="IDE">
+    <div class="nav">
+        <div class="logo">
+            <a href="/">OIDE</a>
+        </div>
         <div class="tabs">
+            <a href="/repos">Repositories</a>
+            <a>Help</a>
+        </div>
+        <div class="signIn">
+            <img src="<%= picture  %>" alt="" id="profileImg">
+            <a class="logOut" href="/logout">Log Out</a>
+        </div>
+    </div>
+    <div class="IDE">
+        <div class="fileTabs">
             <div class="">
                 <div class="fileExplorer">
                     <h2 class="fileHeader">File System</h2>
-                    <h2 class="newFile">+</h2>
                 </div>
-                <div class="files"></div>
+                <% let filesParsed = JSON.parse(files) %>
+                <div class="files">
+                    <% for(var i=0; i<filesParsed.length; i++) {%>
+                        <div class="file">
+                            <% if (filesParsed[i].language == "py") { %>
+                                <img src="/Images/PyIcon.png" alt="">
+                            <% } %>
+                            <% if (filesParsed[i].language == "java") { %>
+                                <img src="/Images/javaIcon.png" alt="">
+                            <% } %>
+                            <% if (filesParsed[i].language == "c") { %>
+                                <img src="/Images/c.png" alt="">
+                            <% } %>
+                            <% if (filesParsed[i].language == "cpp") { %>
+                                <img src="/Images/cpp.png" alt="">
+                            <% } %>
+                            <h3><%= filesParsed[i].name %></h3>
+                        </div>
+                    <% } %>
+                    <div>
+                        <form action="/addFile" method="post" class="addRepo" onsubmit="return onNewFileSubmit()">
+                            <div class="inputPart">
+                                <input type="text"  name="repoName" class="repoName" required autocomplete="off">
+                                <input type="hidden" value="<%=id%>" name="id">
+                                <input type="hidden" value="" name="lang" class="lang">
+                                <span>Repository Name</span>
+                            </div>
+                            <input type="submit" value="Add Repo" class="addRepoBtn">
+                        </form>
+                    </div>
+                </div>
             </div>
+            <div class="buttons">
+                <a href="" class="saveBtn">Save</a>
+                <a href="" class="runBtn">Run</a>
+            </div>
+            
         </div>
         <div class="editor">
             <div class="container activeContainer"></div>
@@ -37,7 +84,7 @@
                 let editor = monaco.editor.create(document.querySelector('.container'), {
                     language: 'python',
                     theme: 'vs-dark',
-                    fontSize: "20px"
+                    fontSize: "16px"
                 });
             </script>
             <div class="terminal">

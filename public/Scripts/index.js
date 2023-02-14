@@ -4,7 +4,7 @@
 // const c = require("../../server/c");
 
 // })
-function runPyFile(newLine=true) {
+function runCodeFile(newLine=true) {
 // message = editor.getValue();
     // console.log(message);
     // let Client = new Client();
@@ -27,6 +27,10 @@ function runPyFile(newLine=true) {
             newLineTxt = "./a.out";
             head = "cpp";
             break;
+        case "java":
+            newLineTxt = "java r.java";
+            head = "jva";
+            break;
     }
     console.log(newLineTxt)
     console.log(head)
@@ -45,6 +49,21 @@ function runPyFile(newLine=true) {
     //console.log(message)
     sendMessage(head, message)
 }
+
+function onNewFileSubmit() {
+    let fileName = document.querySelector(".repoName").value
+    let lang = document.querySelector('.lang')
+    let sections = fileName.toString().split(".")
+    let fileExtension = sections[sections.length-1]
+    let options = ["py","cpp","c","java"]
+    if (options.indexOf(fileExtension) != -1) {
+        console.log(fileExtension)
+        lang.value=fileExtension
+        return true
+    }
+    return false
+}
+
 document.querySelector("button").addEventListener("click", () => {
-    runPyFile()
+    runCodeFile()
 })

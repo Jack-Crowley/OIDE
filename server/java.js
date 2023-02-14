@@ -1,9 +1,10 @@
 const {exec} = require('child_process')
 
 module.exports = {
-    recieveMessageC : function (st, ws) {
-        exec(`echo '${st}' > r.c`, (error, stdout, stderr) => {
-            exec(`gcc r.c`, (error, stdout, stderr) => {
+    recieveMessageJava : function (st, ws) {
+        let fileName = st.split("public class ")[1].split(" ")[0];
+        exec(`echo '${st}' > ${fileName}.java`, (error, stdout, stderr) => {
+            exec(`javac ${fileName}.java`, (error, stdout, stderr) => {
                 if (error) {
                     console.log(error);
                     let msg = {head: "err", msg: ""+error};
@@ -17,7 +18,7 @@ module.exports = {
                     ws.send(JSON.stringify(msg));
                 }
             });
-            exec(`./a.out`, (error, stdout, stderr) => {
+            exec(`java ${fileName}.java`, (error, stdout, stderr) => {
                 let msg = {head: "out", msg: stdout};
                 console.log(stdout)
                 ws.send(JSON.stringify(msg));
