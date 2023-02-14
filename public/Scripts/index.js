@@ -4,17 +4,17 @@
 // const c = require("../../server/c");
 
 // })
-function runPyFile(newLine=true) {
+function runCodeFile(newLine=true) {
 // message = editor.getValue();
     // console.log(message);
     // let Client = new Client();
     // client.sendMessage("pyt", message)
     let newLineTxt;
     let head;
-    console.log(editor.language)
-    console.log(editor.getModel().getLanguageIdentifier().language)
+    // console.log(editor.language)
+    console.log(editor.getModel().getLanguageId())
     
-    switch (editor.language) {
+    switch (editor.getModel().getLanguageId()) {
         case "python":
             newLineTxt = "python r.py";
             head = "pyt";
@@ -26,6 +26,10 @@ function runPyFile(newLine=true) {
         case "cpp":
             newLineTxt = "./a.out";
             head = "cpp";
+            break;
+        case "java":
+            newLineTxt = "java r.java";
+            head = "jva";
             break;
     }
     console.log(newLineTxt)
@@ -43,7 +47,7 @@ function runPyFile(newLine=true) {
     //     }
     // }
     //console.log(message)
-    sendMessage("c"/*head*/, message)
+    sendMessage(head, message)
 }
 
 function onNewFileSubmit() {
@@ -61,5 +65,5 @@ function onNewFileSubmit() {
 }
 
 document.querySelector("button").addEventListener("click", () => {
-    runPyFile()
+    runCodeFile()
 })

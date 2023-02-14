@@ -7,6 +7,8 @@ let previousHistory = document.querySelector(".prevHistory")
 let currentTerm = document.querySelector(".currentItem");
 let terminal = document.querySelector(".terminal")
 
+let commands = []
+curCommand = 0
 
 function starting() {
     current = document.createElement("p");
@@ -22,9 +24,25 @@ function starting() {
     currentTerm.append(input)       
 }
  
-currentTerm.addEventListener("keypress", async (event) => {
+currentTerm.addEventListener("keydown", async (event) => {
     if (event.key == "Enter") {
         createNewLine()
+    }
+    if (event.key == "ArrowUp") {
+        console.log(commands)
+        if (commands.length > 0) {
+            if (input.value === "") {
+                curCommand = commands.length-1
+            }
+            else if (curCommand > 0) {
+                curCommand--
+            }
+            console.log(commands, curCommand)
+            input.value = commands[curCommand]
+            console.log(input.value.length)
+            input.selectionStart = input.selectionEnd = input.value.length
+            input.focus()
+        }
     }
 })
 
@@ -32,17 +50,21 @@ terminal.addEventListener('click', async () => {
     input.focus();
 })
 
-async function createNewLine() {
-    let value = input.textContent;
+async function createNewLine(value=input.textContent) {
+    // let value = input.textContent;
     let x = document.createElement("p");
     x.textContent="> "+value;
     previousHistory.appendChild(x);
 
     if (value.length > 0) {
-        let value2 = input.textContent.split("  ").join(' ').trim()
+        let value2 = value.split("  ").join(' ').trim()
         let curr = document.createElement("p");
         let firstWord = value2.split(" ")[0]
         console.log(firstWord)
+        if (value !== "" && value !== commands[commands.length-1]) {
+            commands.push(value)
+            curCommand = commands.length
+        }
         switch (firstWord) {
             case "cls":
                 previousHistory.innerHTML=""
