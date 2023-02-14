@@ -8,6 +8,9 @@ let temp = {"accountName":"TestUser","repoName":"Test Project","files":[{"name":
 
 let filesDiv = document.querySelector(".files")
 
+let mainTerm = document.querySelector(".terminal")
+let customTerm = document.querySelector(".term6502")
+
 function load() {
     let children = filesDiv.children
 
@@ -33,6 +36,18 @@ function addFileEvent(file) {
         file.classList.add("fileActive")
         let newText = document.querySelector(".fileActive p").textContent;
         editor.setValue(newText)
+
+        let sections = file.children[1].textContent.toString().split(".")
+        let fileExtension = sections[sections.length-1]
+
+        if (fileExtension=="6502") {
+            mainTerm.style.display = "none"
+            customTerm.style.display = "grid"
+        }
+        else {
+            mainTerm.style.display = "block"
+            customTerm.style.display = "none"
+        }
     })
 }
 

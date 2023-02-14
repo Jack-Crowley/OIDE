@@ -55,7 +55,7 @@ function onNewFileSubmit() {
     let lang = document.querySelector('.lang')
     let sections = fileName.toString().split(".")
     let fileExtension = sections[sections.length-1]
-    let options = ["py","cpp","c","java"]
+    let options = ["py","cpp","c","java","6502"]
     if (options.indexOf(fileExtension) != -1) {
         console.log(fileExtension)
         lang.value=fileExtension

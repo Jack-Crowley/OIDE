@@ -49,6 +49,9 @@
                             <% if (filesParsed[i].language == "cpp") { %>
                                 <img src="/Images/cpp.png" alt="">
                             <% } %>
+                            <% if (filesParsed[i].language == "6502") { %>
+                                <img src="/Images/ca65.png" alt="">
+                            <% } %>
                             <h3><%= filesParsed[i].name %></h3>
                             <p><%= filesParsed[i].contents %></p>
                             <h6 style="display: none;"><%= filesParsed[i].id %></h6>
@@ -79,6 +82,7 @@
         </div>
         <div class="editor">
             <div class="container activeContainer"></div>
+            
 		    <script>
 			    var require = { paths: { vs: '/module/monaco-editor/min/vs' } };
 		    </script>
@@ -93,6 +97,18 @@
                     fontSize: "16px"
                 });
             </script>
+            <div class="term6502">
+                <div class="ca65Headers">
+                    <h3 class="sp">Stack Pointer: <span class="spSpan">0</span></h3>
+                    <h3 class="a">Accumulator: <span class="aSpan">0</span></h3>
+                    <h3 class="x">X: <span class="xSpan">0</span></h3>
+                    <h3 class="y">Y: <span class="ySpan">0</span></h3>
+                    <h3 class="pc">Program Counter: <span class="pcSpan">0x0600</span></h3>
+                </div>
+                <div class="canv">
+
+                </div>
+            </div>
             <div class="terminal">
                 <div class="prevHistory"></div>
                 <div class="currentItem"></div>
