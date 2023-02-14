@@ -303,3 +303,17 @@ p.good {
 .saveBtn:hover, .runBtn:hover {
     background-color: #50c26e8f;
 }
+
+.term6502 {
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 10%;
+}
+
+.ca65Headers h3 {
+    color:#00dfc4;
+}
+
+.ca65Headers h3 span {
+    color: white;
+}
