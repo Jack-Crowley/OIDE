@@ -41,7 +41,7 @@ app.post("/addrepo/", ( req, res ) => {
         if (results.length != 0) {
             let idString = JSON.stringify(results).toString()
             let id = JSON.parse(idString.substring(1, idString.length-1)).id
-            db.execute(createRepo, [req.body.repoName, id], (error, resu) => { 
+            db.execute(createRepo, [req.body.repoName, id, Math.floor(Math.random()*16777215).toString(16)], (error, resu) => { 
                 db.execute(selectRepos, [id], (error, resu) => { 
                     res.redirect("/repos")
                 });
