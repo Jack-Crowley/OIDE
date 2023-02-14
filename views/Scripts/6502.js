@@ -293,7 +293,8 @@ function tokenizedToHex(tokenizedArr) {
                 programHex[counter++] = opPos[5];
                 hexAddr = hexify(addr.addr);
                 firstByte = hexAddr & 0xff;
-                secondByte = hexAddr & 0xff00;
+                secondByte = (hexAddr & 0xff00) >> 8;
+                console.log(firstByte, secondByte);
                 programHex[counter++] = firstByte;
                 programHex[counter++] = secondByte;
                 break;
@@ -307,7 +308,7 @@ function tokenizedToHex(tokenizedArr) {
                 programHex[counter++] = opPos[8];
                 hexAddr = hexify(addr.addr);
                 firstByte = hexAddr & 0xff;
-                secondByte = hexAddr & 0xff00;
+                secondByte = (hexAddr & 0xff00) >> 8;
                 programHex[counter++] = firstByte;
                 programHex[counter++] = secondByte;
                 break;
@@ -316,7 +317,7 @@ function tokenizedToHex(tokenizedArr) {
                 programHex[counter++] = opPos[9];
                 hexAddr = hexify(addr.addr);
                 firstByte = hexAddr & 0xff;
-                secondByte = hexAddr & 0xff00;
+                secondByte = (hexAddr & 0xff00) >> 8;
                 programHex[counter++] = firstByte;
                 programHex[counter++] = secondByte;
                 break;
@@ -353,10 +354,15 @@ class Emulator {
     }
 
     inputProgram(program) {
-        hexProgram = tokenizedToHex(tokenizeProgram(program));
+        let hexProgram = tokenizedToHex(tokenizeProgram(program));
         for (let i = 0; i < hexProgram.length; i++) {
-            
+            this.memory.setAddr(0x0600 + i, hexProgram[i]);
         }
+        console.log(hexProgram);
+    }
+
+    run() {
+        this.cpu.run_loop();
     }
 }
 class CPU {
@@ -426,190 +432,261 @@ class CPU {
                         ["TXA", null, null, 0x8a, null, null, null, null, null, null, null, null, null],
                         ["TXS", null, null, 0x9a, null, null, null, null, null, null, null, null, null],
                         ["TYA", null, null, 0x98, null, null, null, null, null, null, null, null, null]];
-        self.running = true;
+        this.running = true;
     }
 
     i00(){
-        self.running = false;
+        this.running = false;
     }
     
     i01(){
-        let firstAddr = memory.getVal(self.pc + 1 + self.x);
-        let secondAddr = memory.getVal(firstAddr) + (memory.getVal(firstAddr + 1) << 8);
-        let val = memory.getVal(secondAddr);
-        self.a |= val;
+        let firstAddr = this.memory.getVal(this.pc + 1) + this.x;
+        let secondAddr = this.memory.getVal(firstAddr) + (this.memory.getVal(firstAddr + 1) << 8);
+        let val = this.memory.getVal(secondAddr);
+        this.a |= val;
+        this.pc += 2;
     }
     
     i05(){
-        let addr = memory.getVal(self.pc + 1) + (memory.getVal(first))
+        let addr = this.memory.getVal(this.pc + 1);
+        let val = this.memory.getVal(addr);
+        this.a |= val;
+        this.pc += 2;
     }
     
     i06(){
-    }
-    
-    i08(){
+        let addr = this.memory.getVal(this.pc + 1);
+        this.memory.setAddr(addr, this.memory.getVal(addr) << 1);
+        this.pc += 2;
     }
     
     i09(){
+        let val = this.memory.getVal(this.pc + 1);
+        this.a |= val;
+        this.pc += 2;
     }
     
     i0a(){
+        this.a = this.a << 1;
+        this.pc++;
     }
     
     i0d(){
+        // TBD
     }
     
     i0e(){
+        // TBD
     }
     
     i10(){
+        // TBD
     }
     
     i11(){
+        // TBD
     }
     
     i15(){
+        // TBD
     }
     
     i16(){
+        // TBD
     }
     
     i18(){
+        // TBD
     }
     
     i19(){
+        // TBD
     }
     
     i1d(){
+        // TBD
     }
     
     i1e(){
+        // TBD
     }
     
     i20(){
+        // TBD
     }
     
     i21(){
+        // TBD
     }
     
     i24(){
+        // TBD
     }
     
     i25(){
+        // TBD
     }
     
     i26(){
+        // TBD
     }
     
     i28(){
+        // TBD
     }
     
     i29(){
+        // TBD
     }
     
     i2a(){
+        // TBD
     }
     
     i2c(){
+        // TBD
     }
     
     i2d(){
+        // TBD
     }
     
     i2e(){
+        // TBD
     }
     
     i30(){
+        // TBD
     }
     
     i31(){
+        // TBD
     }
     
     i35(){
+        // TBD
     }
     
     i36(){
+        // TBD
     }
     
     i38(){
+        // TBD
     }
     
     i39(){
+        // TBD
     }
     
     i3d(){
+        // TBD
     }
     
     i3e(){
+        // TBD
     }
     
     i40(){
+        // TBD
     }
     
     i41(){
+        // TBD
     }
     
     i45(){
+        // TBD
     }
     
     i46(){
+        // TBD
     }
     
     i48(){
+        this.memory.setAddr(0x0100 + this.sp, this.a);
+        this.sp--;
+        this.pc++;
     }
     
     i49(){
+        // TBD
     }
     
     i4a(){
+        // TBD
     }
     
     i4c(){
+        // TBD
     }
     
     i4d(){
+        // TBD
     }
     
     i4e(){
+        // TBD
     }
     
     i50(){
+        // TBD
     }
     
     i51(){
+        // TBD
     }
     
     i55(){
+        // TBD
     }
     
     i56(){
+        // TBD
     }
     
     i58(){
+        // TBD
     }
     
     i59(){
+        // TBD
     }
     
     i5d(){
+        // TBD
     }
     
     i5e(){
+        // TBD
     }
     
     i60(){
+        // TBD
     }
     
     i61(){
+        let firstAddr = this.memory.getVal(this.pc + 1) + this.x;
+        let secondAddr = this.memory.getVal(firstAddr) + (this.memory.getVal(firstAddr + 1) << 8);
+        let val = this.memory.getVal(secondAddr);
+        this.a = (this.a + val) % 0x100;
+        this.pc += 2;
     }
     
     i65(){
+        let addr = this.memory.getVal(this.pc + 1);
+        let val = this.memory.getVal(addr);
+        this.a = (this.a + val) % 0x100;
+        this.pc += 2;
     }
     
     i66(){
+        // TBD
     }
     
     i68(){
+        this.a = this.memory.getVal(--this.sp);
+        this.pc += 1;
     }
     
     i69(){
@@ -886,10 +963,463 @@ class CPU {
     }
     
     ife(){
-    } 
+    }
 
     run_loop() {
-        while (running) {
+        while (this.running) {
+            switch(this.memory.getVal(this.pc)) {
+                case 0x00:
+                    this.i00()
+                    break;
+                case 0x01:
+                    this.i01()
+                    break;
+                case 0x05:
+                    this.i05()
+                    break;
+                case 0x06:
+                    this.i06()
+                    break;
+                case 0x09:
+                    this.i09()
+                    break;
+                case 0x0a:
+                    this.i0a()
+                    break;
+                case 0x0d:
+                    this.i0d()
+                    break;
+                case 0x0e:
+                    this.i0e()
+                    break;
+                case 0x10:
+                    this.i10()
+                    break;
+                case 0x11:
+                    this.i11()
+                    break;
+                case 0x15:
+                    this.i15()
+                    break;
+                case 0x16:
+                    this.i16()
+                    break;
+                case 0x18:
+                    this.i18()
+                    break;
+                case 0x19:
+                    this.i19()
+                    break;
+                case 0x1d:
+                    this.i1d()
+                    break;
+                case 0x1e:
+                    this.i1e()
+                    break;
+                case 0x20:
+                    this.i20()
+                    break;
+                case 0x21:
+                    this.i21()
+                    break;
+                case 0x24:
+                    this.i24()
+                    break;
+                case 0x25:
+                    this.i25()
+                    break;
+                case 0x26:
+                    this.i26()
+                    break;
+                case 0x28:
+                    this.i28()
+                    break;
+                case 0x29:
+                    this.i29()
+                    break;
+                case 0x2a:
+                    this.i2a()
+                    break;
+                case 0x2c:
+                    this.i2c()
+                    break;
+                case 0x2d:
+                    this.i2d()
+                    break;
+                case 0x2e:
+                    this.i2e()
+                    break;
+                case 0x30:
+                    this.i30()
+                    break;
+                case 0x31:
+                    this.i31()
+                    break;
+                case 0x35:
+                    this.i35()
+                    break;
+                case 0x36:
+                    this.i36()
+                    break;
+                case 0x38:
+                    this.i38()
+                    break;
+                case 0x39:
+                    this.i39()
+                    break;
+                case 0x3d:
+                    this.i3d()
+                    break;
+                case 0x3e:
+                    this.i3e()
+                    break;
+                case 0x40:
+                    this.i40()
+                    break;
+                case 0x41:
+                    this.i41()
+                    break;
+                case 0x45:
+                    this.i45()
+                    break;
+                case 0x46:
+                    this.i46()
+                    break;
+                case 0x48:
+                    this.i48()
+                    break;
+                case 0x49:
+                    this.i49()
+                    break;
+                case 0x4a:
+                    this.i4a()
+                    break;
+                case 0x4c:
+                    this.i4c()
+                    break;
+                case 0x4d:
+                    this.i4d()
+                    break;
+                case 0x4e:
+                    this.i4e()
+                    break;
+                case 0x50:
+                    this.i50()
+                    break;
+                case 0x51:
+                    this.i51()
+                    break;
+                case 0x55:
+                    this.i55()
+                    break;
+                case 0x56:
+                    this.i56()
+                    break;
+                case 0x58:
+                    this.i58()
+                    break;
+                case 0x59:
+                    this.i59()
+                    break;
+                case 0x5d:
+                    this.i5d()
+                    break;
+                case 0x5e:
+                    this.i5e()
+                    break;
+                case 0x60:
+                    this.i60()
+                    break;
+                case 0x61:
+                    this.i61()
+                    break;
+                case 0x65:
+                    this.i65()
+                    break;
+                case 0x66:
+                    this.i66()
+                    break;
+                case 0x68:
+                    this.i68()
+                    break;
+                case 0x69:
+                    this.i69()
+                    break;
+                case 0x6a:
+                    this.i6a()
+                    break;
+                case 0x6c:
+                    this.i6c()
+                    break;
+                case 0x6d:
+                    this.i6d()
+                    break;
+                case 0x6e:
+                    this.i6e()
+                    break;
+                case 0x70:
+                    this.i70()
+                    break;
+                case 0x71:
+                    this.i71()
+                    break;
+                case 0x75:
+                    this.i75()
+                    break;
+                case 0x76:
+                    this.i76()
+                    break;
+                case 0x78:
+                    this.i78()
+                    break;
+                case 0x79:
+                    this.i79()
+                    break;
+                case 0x7d:
+                    this.i7d()
+                    break;
+                case 0x7e:
+                    this.i7e()
+                    break;
+                case 0x81:
+                    this.i81()
+                    break;
+                case 0x84:
+                    this.i84()
+                    break;
+                case 0x85:
+                    this.i85()
+                    break;
+                case 0x86:
+                    this.i86()
+                    break;
+                case 0x88:
+                    this.i88()
+                    break;
+                case 0x8a:
+                    this.i8a()
+                    break;
+                case 0x8c:
+                    this.i8c()
+                    break;
+                case 0x8d:
+                    this.i8d()
+                    break;
+                case 0x8e:
+                    this.i8e()
+                    break;
+                case 0x90:
+                    this.i90()
+                    break;
+                case 0x91:
+                    this.i91()
+                    break;
+                case 0x94:
+                    this.i94()
+                    break;
+                case 0x95:
+                    this.i95()
+                    break;
+                case 0x96:
+                    this.i96()
+                    break;
+                case 0x98:
+                    this.i98()
+                    break;
+                case 0x99:
+                    this.i99()
+                    break;
+                case 0x9a:
+                    this.i9a()
+                    break;
+                case 0x9d:
+                    this.i9d()
+                    break;
+                case 0xa0:
+                    this.ia0()
+                    break;
+                case 0xa1:
+                    this.ia1()
+                    break;
+                case 0xa2:
+                    this.ia2()
+                    break;
+                case 0xa4:
+                    this.ia4()
+                    break;
+                case 0xa5:
+                    this.ia5()
+                    break;
+                case 0xa6:
+                    this.ia6()
+                    break;
+                case 0xa8:
+                    this.ia8()
+                    break;
+                case 0xa9:
+                    this.ia9()
+                    break;
+                case 0xaa:
+                    this.iaa()
+                    break;
+                case 0xac:
+                    this.iac()
+                    break;
+                case 0xad:
+                    this.iad()
+                    break;
+                case 0xae:
+                    this.iae()
+                    break;
+                case 0xb0:
+                    this.ib0()
+                    break;
+                case 0xb1:
+                    this.ib1()
+                    break;
+                case 0xb4:
+                    this.ib4()
+                    break;
+                case 0xb5:
+                    this.ib5()
+                    break;
+                case 0xb6:
+                    this.ib6()
+                    break;
+                case 0xb8:
+                    this.ib8()
+                    break;
+                case 0xb9:
+                    this.ib9()
+                    break;
+                case 0xba:
+                    this.iba()
+                    break;
+                case 0xbc:
+                    this.ibc()
+                    break;
+                case 0xbd:
+                    this.ibd()
+                    break;
+                case 0xbe:
+                    this.ibe()
+                    break;
+                case 0xc0:
+                    this.ic0()
+                    break;
+                case 0xc1:
+                    this.ic1()
+                    break;
+                case 0xc4:
+                    this.ic4()
+                    break;
+                case 0xc5:
+                    this.ic5()
+                    break;
+                case 0xc6:
+                    this.ic6()
+                    break;
+                case 0xc8:
+                    this.ic8()
+                    break;
+                case 0xc9:
+                    this.ic9()
+                    break;
+                case 0xca:
+                    this.ica()
+                    break;
+                case 0xcc:
+                    this.icc()
+                    break;
+                case 0xcd:
+                    this.icd()
+                    break;
+                case 0xce:
+                    this.ice()
+                    break;
+                case 0xd0:
+                    this.id0()
+                    break;
+                case 0xd1:
+                    this.id1()
+                    break;
+                case 0xd5:
+                    this.id5()
+                    break;
+                case 0xd6:
+                    this.id6()
+                    break;
+                case 0xd8:
+                    this.id8()
+                    break;
+                case 0xd9:
+                    this.id9()
+                    break;
+                case 0xdd:
+                    this.idd()
+                    break;
+                case 0xde:
+                    this.ide()
+                    break;
+                case 0xe0:
+                    this.ie0()
+                    break;
+                case 0xe1:
+                    this.ie1()
+                    break;
+                case 0xe4:
+                    this.ie4()
+                    break;
+                case 0xe5:
+                    this.ie5()
+                    break;
+                case 0xe6:
+                    this.ie6()
+                    break;
+                case 0xe8:
+                    this.ie8()
+                    break;
+                case 0xe9:
+                    this.ie9()
+                    break;
+                case 0xea:
+                    this.iea()
+                    break;
+                case 0xec:
+                    this.iec()
+                    break;
+                case 0xed:
+                    this.ied()
+                    break;
+                case 0xee:
+                    this.iee()
+                    break;
+                case 0xf0:
+                    this.if0()
+                    break;
+                case 0xf1:
+                    this.if1()
+                    break;
+                case 0xf5:
+                    this.if5()
+                    break;
+                case 0xf6:
+                    this.if6()
+                    break;
+                case 0xf8:
+                    this.if8()
+                    break;
+                case 0xf9:
+                    this.if9()
+                    break;
+                case 0xfd:
+                    this.ifd()
+                    break;
+                case 0xfe:
+                    this.ife()
+                    break;
+            }
+            console.log(this.memory);
         }
     }
 }
@@ -941,9 +1471,21 @@ class Display {
 let emu = new Emulator();
 emu.showScreen();
 let program = document.getElementById("program");
-let button = document.getElementById("submit");
-let hexProgram;
-button.onclick = () => {
-    hexProgram = tokenizedToHex(tokenizeProgram(program.value));
-    console.log(hexProgram);
+let submitbtn = document.getElementById("submit");
+let runbtn = document.getElementById("run");
+let spText = document.getElementById("sp");
+let aText = document.getElementById("a");
+let xText = document.getElementById("x");
+let yText = document.getElementById("y");
+let pcText = document.getElementById("pc");
+submitbtn.onclick = () => {
+    emu.inputProgram(program.value);
+}
+runbtn.onclick = () => {
+    emu.run();
+    spText.innerHTML = `SP: ${emu.cpu.sp}`;
+    aText.innerHTML = `A: ${emu.cpu.a}`;
+    xText.innerHTML = `X: ${emu.cpu.x}`;
+    yText.innerHTML = `Y: ${emu.cpu.y}`;
+    pcText.innerHTML = `PC: ${emu.cpu.pc}`;
 }
