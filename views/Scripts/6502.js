@@ -362,7 +362,7 @@ class Emulator {
     }
 
     run() {
-        this.cpu.run_loop();
+        this.cpu.run_loop(this.display);
     }
 }
 class CPU {
@@ -685,80 +685,139 @@ class CPU {
     }
     
     i68(){
-        this.a = this.memory.getVal(--this.sp);
+        this.a = this.memory.getVal(++this.sp);
         this.pc += 1;
     }
     
     i69(){
+        let val = this.memory.getVal(this.pc + 1);
+        this.a = (this.a + val) % 0x100;
+        this.pc += 2;
     }
     
     i6a(){
+        // TBD
     }
     
     i6c(){
+        // TBD
     }
     
     i6d(){
+        let addr = this.memory.getVal(this.pc + 1) + (this.memory.getVal(this.pc + 2) << 8);
+        let val = this.memory.getVal(addr);
+        this.a = (this.a + val) % 0x100;
+        this.pc += 3;
     }
     
     i6e(){
+        // TBD
     }
     
     i70(){
+        // TBD
     }
     
     i71(){
+        let firstAddr = this.memory.getVal(this.pc + 1);
+        let secondAddr = this.y + this.memory.getVal(firstAddr) + (this.memory.getVal(firstAddr + 1) << 8);
+        let val = this.memory.getVal(secondAddr);
+        this.a = (this.a + val) % 0x100;
+        this.pc += 2;
     }
     
     i75(){
+        let addr = this.memory.getVal(this.pc + 1) + this.x;
+        let val = this.memory.getVal(addr);
+        this.a = (this.a + val) % 0x100;
+        this.pc += 2;
     }
     
     i76(){
+        // TBD
     }
     
     i78(){
+        // TBD
     }
     
     i79(){
+        let addr = this.memory.getVal(this.pc + 1) + this.y;
+        let val = this.memory.getVal(addr);
+        this.a = (this.a + val) % 0x100;
+        this.pc += 2;
     }
     
     i7d(){
+        let addr = this.memory.getVal(this.pc + 1) + this.x;
+        let val = this.memory.getVal(addr);
+        this.a = (this.a + val) % 0x100;
+        this.pc += 2;
     }
     
     i7e(){
+        // TBD
     }
     
     i81(){
+        let firstAddr = this.memory.getVal(this.pc + 1) + this.x;
+        let secondAddr = this.memory.getVal(firstAddr) + (this.memory.getVal(firstAddr + 1) << 8);
+        this.memory.setAddr(secondAddr, this.a);
+        this.pc += 2;
     }
     
     i84(){
+        let addr = this.memory.getVal(this.pc + 1);
+        this.memory.setAddr(addr, this.y);
+        this.pc += 2;
     }
     
     i85(){
+        let addr = this.memory.getVal(this.pc + 1);
+        this.memory.setAddr(addr, this.a);
+        this.pc += 2;
     }
     
     i86(){
+        let addr = this.memory.getVal(this.pc + 1);
+        this.memory.setAddr(addr, this.x);
+        this.pc += 2;
     }
     
     i88(){
+        this.y--;
+        this.pc++;
     }
     
     i8a(){
+        this.a = this.x;
+        this.pc++;
     }
     
     i8c(){
+        let addr = this.memory.getVal(this.pc + 1) + (this.memory.getVal(this.pc + 2) << 8);
+        this.memory.setAddr(addr, this.y);
+        this.pc += 3;
     }
     
     i8d(){
+        let addr = this.memory.getVal(this.pc + 1) + (this.memory.getVal(this.pc + 2) << 8);
+        this.memory.setAddr(addr, this.a);
+        this.pc += 3;
     }
     
     i8e(){
+        let addr = this.memory.getVal(this.pc + 1) + (this.memory.getVal(this.pc + 2) << 8);
+        this.memory.setAddr(addr, this.x);
+        this.pc += 3;
     }
     
     i90(){
+        // TBD
     }
     
     i91(){
+        
     }
     
     i94(){
@@ -819,6 +878,7 @@ class CPU {
     }
     
     ib0(){
+        // TBD
     }
     
     ib1(){
@@ -834,6 +894,7 @@ class CPU {
     }
     
     ib8(){
+        // TBD
     }
     
     ib9(){
@@ -852,15 +913,19 @@ class CPU {
     }
     
     ic0(){
+        // TBD
     }
     
     ic1(){
+        // TBD
     }
     
     ic4(){
+        // TBD
     }
     
     ic5(){
+        // TBD
     }
     
     ic6(){
@@ -870,51 +935,62 @@ class CPU {
     }
     
     ic9(){
+        // TBD
     }
     
     ica(){
     }
     
     icc(){
+        // TBD
     }
     
     icd(){
+        // TBD
     }
     
     ice(){
     }
     
     id0(){
+        // TBD
     }
     
     id1(){
+        // TBD
     }
     
     id5(){
+        // TBD
     }
     
     id6(){
     }
     
     id8(){
+        // TBD
     }
     
     id9(){
+        // TBD
     }
     
     idd(){
+        // TBD
     }
     
     ide(){
     }
     
     ie0(){
+        // TBD
     }
     
     ie1(){
     }
     
     ie4(){
+        // TBD
     }
     
     ie5(){
@@ -933,6 +1009,7 @@ class CPU {
     }
     
     iec(){
+        // TBD
     }
     
     ied(){
@@ -942,6 +1019,7 @@ class CPU {
     }
     
     if0(){
+        // TBD
     }
     
     if1(){
@@ -954,6 +1032,7 @@ class CPU {
     }
     
     if8(){
+        // TBD
     }
     
     if9(){
@@ -965,7 +1044,7 @@ class CPU {
     ife(){
     }
 
-    run_loop() {
+    run_loop(display) {
         while (this.running) {
             switch(this.memory.getVal(this.pc)) {
                 case 0x00:
@@ -1420,6 +1499,7 @@ class CPU {
                     break;
             }
             console.log(this.memory);
+            display.show(this.memory);
         }
     }
 }
