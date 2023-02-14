@@ -11,10 +11,10 @@ function runPyFile(newLine=true) {
     // client.sendMessage("pyt", message)
     let newLineTxt;
     let head;
-    console.log(editor.language)
-    console.log(editor.getModel().getLanguageIdentifier().language)
+    // console.log(editor.language)
+    console.log(editor.getModel().getLanguageId())
     
-    switch (editor.language) {
+    switch (editor.getModel().getLanguageId()) {
         case "python":
             newLineTxt = "python r.py";
             head = "pyt";
@@ -43,7 +43,7 @@ function runPyFile(newLine=true) {
     //     }
     // }
     //console.log(message)
-    sendMessage("c"/*head*/, message)
+    sendMessage(head, message)
 }
 document.querySelector("button").addEventListener("click", () => {
     runPyFile()
