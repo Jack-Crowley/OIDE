@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/Styles/repos.css">
+</head>
+<body>
+    <img src="<%= picture %>" alt="">
+    <% let reposPARSED = JSON.parse(repos) %>
+    <div class="repos">
+        <% for(var i=0; i<reposPARSED.length; i++) {%>
+            <div style="background-color: #<%= reposPARSED[i].color %>" class="repo">
+                <h1><%= reposPARSED[i].repoName %></h1>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="rightClickMenu">
+        <form action="" method="post" class="rightClickForm">
+            <input type="submit" value="Delete" class="delete">
+        </form>
+    </div>
+
+    <form action="/addrepo/" method="post">
+        <input type="text" name="repoName" autocomplete="off">
+        <input type="submit" value="Add Repo">
+    </form>
+
+    <script src="/Scripts/repos.js"></script>i
+</body>
+</html>

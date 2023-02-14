@@ -1,7 +1,7 @@
 const {exec} = require('child_process')
 
 module.exports = {
-    recieveMessage : function (st, ws) {
+    recieveMessagePyt : function (st, ws) {
         exec(`echo '${st}' > r.py`, (error, stdout, stderr) => {
             exec(`python r.py`, (error, stdout, stderr) => {
                 if (error) {
