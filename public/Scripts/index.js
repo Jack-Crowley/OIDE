@@ -64,6 +64,6 @@ function onNewFileSubmit() {
     return false
 }
 
-document.querySelector("button").addEventListener("click", () => {
+document.querySelector(".runBtn").addEventListener("click", () => {
     runCodeFile()
 })

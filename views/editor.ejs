@@ -50,6 +50,8 @@
                                 <img src="/Images/cpp.png" alt="">
                             <% } %>
                             <h3><%= filesParsed[i].name %></h3>
+                            <p><%= filesParsed[i].contents %></p>
+                            <h6 style="display: none;"><%= filesParsed[i].id %></h6>
                         </div>
                     <% } %>
                     <div>
@@ -66,8 +68,12 @@
                 </div>
             </div>
             <div class="buttons">
-                <a href="" class="saveBtn">Save</a>
-                <a href="" class="runBtn">Run</a>
+                <a href="#" class="saveBtn">Save</a>
+                <a href="#" class="runBtn">Run</a>
+                <form action="/saveFile" style="display: none;" method="post" class="saveForm">
+                    <input type="hidden" name="files" class="saveFileBox">
+                    <input type="hidden" value="<%=id%>" name="id">
+                </form>
             </div>
             
         </div>
@@ -97,5 +103,6 @@
     <script src="/Scripts/connect.js"></script>
     <script src="/Scripts/index.js"></script>
     <script src="/Scripts/terminal.js"></script>
+    <script src="/Scripts/save.js"></script>
 </body>
 </html>

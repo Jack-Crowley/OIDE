@@ -1,1 +1,1 @@
-select name, language, contents from file where repoID=?
+select name, language, contents, id from file where repoID=?

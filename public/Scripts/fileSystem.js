@@ -9,25 +9,14 @@ let temp = {"accountName":"TestUser","repoName":"Test Project","files":[{"name":
 let filesDiv = document.querySelector(".files")
 
 function load() {
-    temp.files.forEach((file) => {
-        let fileDiv = document.createElement("div")
-        fileDiv.classList.add("file")
-        filesDiv.appendChild(fileDiv)
-        let img = document.createElement('img')
-        img.src = "../Images/PyIcon.png"
-        fileDiv.appendChild(img)
-        let txt = document.createElement('h3')
-        txt.textContent = file.name
-        fileDiv.appendChild(txt)
-        let text = document.createElement('p')
-        text.textContent=file.text
-        fileDiv.appendChild(text)
-        monaco.editor.setModelLanguage(editor.getModel(), file.language)
-        fileDiv.dataset.fileNum = temp.files.indexOf(file)
-        addFileEvent(fileDiv)
-    })
+    let children = filesDiv.children
 
-    if (temp.files.length > 0) {
+    for (let i = 0; i < children.length-1; i++) {
+        addFileEvent(children[i])
+    }
+    console.log(children.length)
+
+    if (children.length > 0) {
         let activeFile = document.querySelector(".file");
         activeFile.classList.add("fileActive");
         editor.setValue(document.querySelector(".fileActive p").textContent)
@@ -36,6 +25,7 @@ function load() {
 
 function addFileEvent(file) {
     file.addEventListener("click", () => {
+        console.log("click")
         let active = document.querySelector(".fileActive")
         let activeText = document.querySelector(".fileActive p");
         activeText.textContent = editor.getValue()
@@ -45,3 +35,5 @@ function addFileEvent(file) {
         editor.setValue(newText)
     })
 }
+
+load()
