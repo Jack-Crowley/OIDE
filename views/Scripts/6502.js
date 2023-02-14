@@ -1,8 +1,7 @@
-
 class Emulator {
     constructor() {
-        this.cpu = new CPU();
         this.memory = new Memory();
+        this.cpu = new CPU(this.memory);
         this.display = new Display(document.getElementById("screen"));
     }
 
@@ -15,12 +14,14 @@ class Emulator {
     }
 }
 class CPU {
-    constructor() {
+    constructor(memoryObj) {
+        this.memory = memoryObj;
         this.sp = 0xFF;
         this.a = 0x00;
         this.x = 0x00;
         this.y = 0x00;
         this.pc = 0x0600;
+                     /*NV-BDIZC*/
         this.flags = 0x00110000;
                       /* Name   Acc   Imm   Imp   Rel   Abs   ZP    Ind   ABX   ABY   ZPX   DXI   IDX*/
         this.opcodes = [["ADC", null, 0x69, null, null, 0x6d, 0x65, null, 0x7d, 0x79, 0x75, 0x61, 0x71],
@@ -79,15 +80,22 @@ class CPU {
                         ["TXA", null, null, 0x8a, null, null, null, null, null, null, null, null, null],
                         ["TXS", null, null, 0x9a, null, null, null, null, null, null, null, null, null],
                         ["TYA", null, null, 0x98, null, null, null, null, null, null, null, null, null]];
+        self.running = true;
     }
 
     i00(){
+        self.running = false;
     }
     
     i01(){
+        let firstAddr = memory.getVal(self.pc + 1 + self.x);
+        let secondAddr = memory.getVal(firstAddr) + (memory.getVal(firstAddr + 1) << 8);
+        let val = memory.getVal(secondAddr);
+        self.a |= val;
     }
     
     i05(){
+        let addr = memory.getVal(self.pc + 1) + (memory.getVal(first))
     }
     
     i06(){
@@ -532,7 +540,12 @@ class CPU {
     }
     
     ife(){
-    }    
+    } 
+
+    run_loop() {
+        while (running) {
+        }
+    }
 }
 
 /* Memory Layout:
