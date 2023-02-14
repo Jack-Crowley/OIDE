@@ -35,6 +35,7 @@ const createRepo = fs.readFileSync(__dirname + "\\db\\queries\\insertRepo.sql", 
 const selectRepoFromIdea = fs.readFileSync(__dirname + "\\db\\queries\\SelectRepoID.sql", { encoding: "UTF-8" })
 const selectFiles = fs.readFileSync(__dirname + "\\db\\queries\\selectFiles.sql", { encoding: "UTF-8" })
 const insertFile = fs.readFileSync(__dirname + "\\db\\queries\\insertFile.sql", { encoding: "UTF-8" })
+const updateFile = fs.readFileSync(__dirname + "\\db\\queries\\updateFile.sql", { encoding: "UTF-8" })
 
 app.post("/addrepo/", requiresAuth(), ( req, res ) => {
     let data = JSON.parse(JSON.stringify(req.oidc.user))
@@ -64,6 +65,15 @@ app.post("/addfile/", requiresAuth(), ( req, res ) => {
             res.redirect("/editor/"+req.body.id)
         });
     });
+})
+
+app.post("/saveFile/", requiresAuth(), ( req, res ) => {
+    let json = JSON.parse(req.body.files)
+    let files = json.files
+    for (let i = 0; i < files.length; i++) {
+        db.execute(updateFile, [files[i].text, files[i].id])
+    }
+    res.redirect("/editor/"+req.body.id)
 })
 
 app.get('/', (req, res) => {
