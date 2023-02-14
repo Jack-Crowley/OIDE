@@ -59,35 +59,6 @@ html, body {
     background-color: #d1bd09;
 }
 
-.nav {
-    overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.4);
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 10vh;
-    z-index: 99;
-    display: flex;
-    color: white;
-    justify-content: space-around;
-}
-
-.tabs, .logo, .signIn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
-}
-
-.tabs a:hover, .logo a:hover, .signIn a:hover {
-    cursor: pointer;
-}
-
-.tabs h3 {
-    padding: 10px;
-    display: inline;
-}
-
 .signUp {
     background-color: #d1bd09;
     padding: 6px;
@@ -95,32 +66,6 @@ html, body {
 
 .signUp:hover {
     background-color: #d1bd09d4;
-}
-
-.signIn a, .logo a, .tabs a {
-    text-decoration: none;
-    color:white;
-    font-size: 1.3em;
-    font-weight: bold;
-    padding:10px;
-}
-
-.logOut {
-    background-color: #d5370bd4;
-    padding: 6px;
-}
-
-.logOut:hover {
-    background-color: #d5370bd4;
-}
-
-#profileImg {
-    height: 50%;
-    border-radius: 50%;
-}
-
-.tabs a:hover {
-    background-color: rgba(255,255,255,0.3);
 }
 
 .reposButton {

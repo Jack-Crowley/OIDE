@@ -32,25 +32,37 @@ const getAccountID = fs.readFileSync(__dirname + "\\db\\queries\\SelectAccountID
 const selectRepos = fs.readFileSync(__dirname + "\\db\\queries\\selectRepos.sql", { encoding: "UTF-8" })
 const createAccount = fs.readFileSync(__dirname + "\\db\\queries\\insertAccount.sql", { encoding: "UTF-8" })
 const createRepo = fs.readFileSync(__dirname + "\\db\\queries\\insertRepo.sql", { encoding: "UTF-8" })
+const selectRepoFromIdea = fs.readFileSync(__dirname + "\\db\\queries\\SelectRepoID.sql", { encoding: "UTF-8" })
+const selectFiles = fs.readFileSync(__dirname + "\\db\\queries\\selectFiles.sql", { encoding: "UTF-8" })
+const insertFile = fs.readFileSync(__dirname + "\\db\\queries\\insertFile.sql", { encoding: "UTF-8" })
 
-app.post("/addrepo/", ( req, res ) => {
+app.post("/addrepo/", requiresAuth(), ( req, res ) => {
     let data = JSON.parse(JSON.stringify(req.oidc.user))
     db.execute(getAccountID, [data.email], (error, results) => {
         if (error) 
             throw error;
-        if (results.length != 0) {
-            let idString = JSON.stringify(results).toString()
-            let id = JSON.parse(idString.substring(1, idString.length-1)).id
-            db.execute(createRepo, [req.body.repoName, id, Math.floor(Math.random()*16777215).toString(16)], (error, resu) => { 
-                db.execute(selectRepos, [id], (error, resu) => { 
-                    res.redirect("/repos")
-                });
-            });
-        }
-        else {
+        if (results.length == 0) {
             db.execute(createAccount, [data.nickname, data.email]);
-            res.send("Account Created")
         }
+        let idString = JSON.stringify(results).toString()
+        let id = JSON.parse(idString.substring(1, idString.length-1)).id
+        db.execute(createRepo, [req.body.repoName, req.body.description, id, Math.floor(Math.random()*16777215).toString(16)], (error, resu) => { 
+            db.execute(selectRepos, [id], (error, resu) => { 
+                res.redirect("/repos")
+            });
+        });
+    });
+})
+
+app.post("/addfile/", requiresAuth(), ( req, res ) => {
+    console.log("Name: "+req.body.repoName+", Lang: "+req.body.lang+", ID: "+req.body.id)
+    let data = JSON.parse(JSON.stringify(req.oidc.user))
+    db.execute(insertFile, [req.body.repoName, req.body.lang, "", req.body.id], (error, resu) => { 
+        if (error) throw error;
+        db.execute(selectRepos, [req.body.id], (error, resu) => { 
+            if (error) throw error;
+            res.redirect("/editor/"+req.body.id)
+        });
     });
 })
 
@@ -92,6 +104,24 @@ app.get( "/repos", requiresAuth(), ( req, res ) => {
     );
     
 } );
+
+app.get('/repo/:name', requiresAuth(), ( req, res ) => {
+    db.execute(selectRepoFromIdea, [req.params.name], (error, results) => {
+        if (error) 
+            throw error;
+        let data = JSON.parse(JSON.stringify(results))
+        res.redirect("/editor/"+data[0].id)
+    });
+});
+
+app.get('/editor/:id', requiresAuth(), ( req, res ) => {
+    let data = JSON.parse(JSON.stringify(req.oidc.user))
+    db.execute(selectFiles, [req.params.id], (error, resu) => {
+        if (error) 
+            throw error;
+        res.render("editor", {files : JSON.stringify(resu).toString(), id : req.params.id, picture : data.picture})
+    });
+});
 
 
 app.get('/profile', requiresAuth(), (req, res) => {

@@ -45,6 +45,21 @@ function runPyFile(newLine=true) {
     //console.log(message)
     sendMessage("c"/*head*/, message)
 }
+
+function onNewFileSubmit() {
+    let fileName = document.querySelector(".repoName").value
+    let lang = document.querySelector('.lang')
+    let sections = fileName.toString().split(".")
+    let fileExtension = sections[sections.length-1]
+    let options = ["py","cpp","c","java"]
+    if (options.indexOf(fileExtension) != -1) {
+        console.log(fileExtension)
+        lang.value=fileExtension
+        return true
+    }
+    return false
+}
+
 document.querySelector("button").addEventListener("click", () => {
     runPyFile()
 })

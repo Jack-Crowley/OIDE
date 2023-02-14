@@ -6,16 +6,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/Styles/repos.css">
+    <link rel="stylesheet" href="/Styles/nav.css">
 </head>
 <body>
-    <img src="<%= picture %>" alt="">
+    <div class="nav">
+        <div class="logo">
+            <a href="/">OIDE</a>
+        </div>
+        <div class="tabs">
+            <a href="/repos">Repositories</a>
+            <a>Help</a>
+        </div>
+        <div class="signIn">
+            <img src="<%= picture  %>" alt="" id="profileImg">
+            <a class="logOut" href="/logout">Log Out</a>
+        </div>
+    </div>
     <% let reposPARSED = JSON.parse(repos) %>
     <div class="repos">
         <% for(var i=0; i<reposPARSED.length; i++) {%>
-            <div style="background-color: #<%= reposPARSED[i].color %>" class="repo">
-                <h1><%= reposPARSED[i].repoName %></h1>
+            <div class="repo">
+                <div class="color" style="background-color: #<%= reposPARSED[i].color %>"></div>
+                <div class="name">
+                    <div class="title"><h1><%= reposPARSED[i].repoName %></h1></div>
+                    <div class="description">
+                        <h3><%= reposPARSED[i].description %></h3>
+                    </div>
+                </div>
             </div>
         <% } %>
+        <div>
+            <form action="/addRepo" method="post" class="addRepo">
+                <div class="inputPart">
+                    <input type="text"  name="repoName" class="repoName" required>
+                    <span>Repository Name</span>
+                </div>
+                <div class="inputPart">
+                    <input type="text"  name="description" class="description" required>
+                    <span>Description</span>
+                </div>
+                <input type="submit" value="Add Repo" class="addRepoBtn">
+            </form>
+            
+        </div>
     </div>
 
     <div class="rightClickMenu">
@@ -23,11 +56,6 @@
             <input type="submit" value="Delete" class="delete">
         </form>
     </div>
-
-    <form action="/addrepo/" method="post">
-        <input type="text" name="repoName" autocomplete="off">
-        <input type="submit" value="Add Repo">
-    </form>
 
     <script src="/Scripts/repos.js"></script>i
 </body>

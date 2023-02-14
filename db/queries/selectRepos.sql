@@ -1,1 +1,1 @@
-select repoName, color from repo where accountID=?
+select repoName, color, description from repo where accountID=?

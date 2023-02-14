@@ -1,4 +1,4 @@
 INSERT INTO repo 
-    (repoName, accountID, color) 
+    (repoName, description, accountID, color) 
 VALUES 
-    (?, ?, ?);
+    (?, ?, ?, ?);

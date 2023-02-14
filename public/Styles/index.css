@@ -6,6 +6,14 @@ body, html {
     background-color: #272727;
 }
 
+body {
+    padding-top: 6vh;
+}
+
+.nav {
+    height: 6vh;
+}
+
 .IDE {
     display: grid;
     grid-template-columns: 1fr 6fr;
@@ -17,11 +25,16 @@ body, html {
     color: white;
     padding: 10px;
     display: flex;
+    min-width: 20vw;
     justify-content: space-between;
     background-color: #393939;
+    text-align: center;
+    width: 100%;
 }
 
 .fileExplorer h2 {
+    margin-left: 20px;
+    text-align: center;
     font-size: 1.5em ;
 }
 
@@ -46,15 +59,6 @@ body, html {
 .editor {
     display: grid;
     grid-template-rows: 4fr 3fr;
-}
-
-.nav {
-    height: 6vh;
-    width: 100%;
-    background-color: #555555;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .terminal {
@@ -138,7 +142,7 @@ div.activeContainer {
 }
 
 
-.tabs {
+.fileTabs {
     background-color: #454545;
 }
 
@@ -210,4 +214,92 @@ p.good {
 .file:hover {
     background-color: #272727;
     cursor: pointer;
+}
+
+.addRepo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    background-color: #454545;
+    height: 315.44px;
+}
+
+.inputPart {
+    background-color: #454545;
+    position: relative;
+}
+
+.addRepo {
+    padding: 10%;
+    height: 200px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    gap:10px;
+    background-color: #454545;
+    height: 315.44px;
+}
+
+.inputPart input {
+    width: 200px;
+    height: 20px;
+    padding: 10px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background-color: #121212;
+    border-radius: 5px;
+    outline: none;
+    color:white;
+    font-size: 1em;
+}
+
+.inputPart span {
+    position: absolute;
+    left: 0;
+    padding: 10px;
+    pointer-events: none;
+    font-size: 1em;
+    color:rgba(255,255,255,0.2);
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.inputPart input:valid ~ span,
+.inputPart input:focus ~ span {
+    color: #00dfc4;
+    transform: translateX(10px) translateY(-7px);
+    font-size: 0.75em;
+    padding: 0 10px;
+    background-color: #121212;
+    border-left: 1px solid #00dfc4;
+    border-right: 1px solid #00dfc4;
+}
+
+.addRepoBtn {
+    width: 200px;
+    background-color: #121212;
+    border: 1px solid #50c26e;
+    color: #50c26e;
+    height: 40px;
+    font-size: 2em;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.saveBtn, .runBtn {
+    width: 80%;
+    margin: 0 10%;
+    background-color: #50c26e;
+    color:white;
+    font-size: 2em;
+    text-decoration: none;
+    text-align: center;
+}
+
+.saveBtn:hover, .runBtn:hover {
+    background-color: #50c26e8f;
 }

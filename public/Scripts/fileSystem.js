@@ -44,5 +44,3 @@ function addFileEvent(file) {
         editor.setValue(newText)
     })
 }
-
-load()
