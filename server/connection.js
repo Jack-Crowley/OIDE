@@ -1,6 +1,8 @@
 const {WebSocket, RawData, Server} = require('ws');
 const { recieveMessagePyt } = require("./python.js")
 const { recieveMessageC } = require("./c.js")
+const { recieveMessageCPP } = require("./cpp.js")
+const { recieveMessageJava } = require("./java.js")
 // Set up server
 const port = 8080;
 
@@ -23,7 +25,14 @@ wss.on('connection', function connection(ws) {
                 recieveMessagePyt(fullMsg, ws);
                 break;
             case "gcc":
+                console.log("here!!!!!!!!!!! gcc")
                 recieveMessageC(fullMsg, ws);
+                break;
+            case "cpp":
+                recieveMessageCPP(fullMsg, ws);
+                break;
+            case "jva":
+                recieveMessageJava(fullMsg, ws);
                 break;
         }
     });

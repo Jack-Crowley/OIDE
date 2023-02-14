@@ -2,8 +2,8 @@ const {exec} = require('child_process')
 
 module.exports = {
     recieveMessageC : function (st, ws) {
-        exec(`echo '${st}' > r.c`, (error, stdout, stderr) => {
-            exec(`gcc r.c`, (error, stdout, stderr) => {
+        exec(`echo '${st}' > r.cpp`, (error, stdout, stderr) => {
+            exec(`g++ r.c`, (error, stdout, stderr) => {
                 if (error) {
                     console.log(error);
                     let msg = {head: "err", msg: ""+error};

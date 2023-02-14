@@ -50,14 +50,14 @@ terminal.addEventListener('click', async () => {
     input.focus();
 })
 
-async function createNewLine() {
-    let value = input.textContent;
+async function createNewLine(value=input.textContent) {
+    // let value = input.textContent;
     let x = document.createElement("p");
     x.textContent="> "+value;
     previousHistory.appendChild(x);
 
     if (value.length > 0) {
-        let value2 = input.textContent.split("  ").join(' ').trim()
+        let value2 = value.split("  ").join(' ').trim()
         let curr = document.createElement("p");
         let firstWord = value2.split(" ")[0]
         console.log(firstWord)

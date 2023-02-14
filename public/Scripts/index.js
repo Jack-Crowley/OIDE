@@ -4,7 +4,7 @@
 // const c = require("../../server/c");
 
 // })
-function runPyFile(newLine=true) {
+function runCodeFile(newLine=true) {
 // message = editor.getValue();
     // console.log(message);
     // let Client = new Client();
@@ -27,6 +27,10 @@ function runPyFile(newLine=true) {
             newLineTxt = "./a.out";
             head = "cpp";
             break;
+        case "java":
+            newLineTxt = "java r.java";
+            head = "jva";
+            break;
     }
     console.log(newLineTxt)
     console.log(head)
@@ -46,5 +50,5 @@ function runPyFile(newLine=true) {
     sendMessage(head, message)
 }
 document.querySelector("button").addEventListener("click", () => {
-    runPyFile()
+    runCodeFile()
 })
